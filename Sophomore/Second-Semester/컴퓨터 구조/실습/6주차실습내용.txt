@@ -1,0 +1,46 @@
+# 소프트웨어융합 대학
+# Procedure calls
+# 학번 : 20195124
+# 이름 : 김민석
+
+	.text
+	.globl main
+main:	# 함수의 이름 라벨링
+	# 라벨링 == 메모리 주소와 같은 것
+
+	addi $a0, $0, 2
+	addi $a1, $0, 3
+	addi $a2, $0, 4
+	addi $a3, $0, 5
+
+	jal diffofsums
+	add $s0, $v0, $0
+
+	#exit
+	li $v0, 10
+	syscall
+
+diffofsums:
+	addi $sp, $sp, -12 # 3 words memory space allocate
+	sw $s0, 8($sp)
+	sw $t0, 4($sp)
+	sw $t1, 0($sp)
+
+	add $t0, $a0, $a1
+	add $t1, $a2, $a3
+	sub $s0, $t0, $t1
+	add $v0, $s0, $0
+
+	lw $t1, 0($sp)
+	lw $t0, 4($sp)
+	lw $s0, 8($sp)
+
+	addi $sp, $sp, 12 # 3 words memory space deallocate
+	jr $ra	
+	
+
+	.data
+
+-------------------------------------------------------------------------------------------
+
+

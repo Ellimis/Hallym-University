@@ -1,0 +1,196 @@
+# 한림대학교 소프트웨어융합 대학
+# 컴퓨터구조 5주차 실습 - 조건부 분기
+# 학번 : 20195124
+# 이름 : 김민석
+
+# beg : b~~ equal, bne : b~~ not equal, j : jump
+	.text
+	.globl main
+main:
+	# if 문(else 없음)
+	# a = $0, b = $1
+
+	# a = 4, b = 1
+	# b = b * 4
+	# if(a == b) 
+	#	b = a + b
+	# b = b + 1
+	# b = b - a
+
+	addi $s0, $0, 4 	# $s0 <-- 4
+	addi $s1, $0, 1 	# $s1 <-- 1
+	sll $s1, $s1, 2	# shift left logical, $s1 <-- $s1 * 4
+	beg $s0, $s1, target # if $s0 == $s1 --> jump to target
+			# beg, bne 는 target 부분을 보면 이동하려는 곳과 얼마나 떨어져있는지 4의 배수인 숫자로 되있는 반면
+			# j target 을 쓰게 되면 jump (target 주소) [target] 으로 보이면서
+			# 바로 target 주소로 이동을 해서 그 사이에 있는 명령어들을 
+			# 쓰래기로 만들어버림
+	addi $s1, $s1, 1	# $s1 <-- $s1 + 1
+	sub $s1, $s1, $s0	# $s1 <-- $s1 - $s0
+
+target:
+	add $s1, $s1, $s0	# $s1 <-- $s1 + $s0
+
+	li $v0, 10
+	syscall	
+
+	.data
+
+
+--------------------------------------------------------------------------------------------------------------------
+# jr : jump register
+	.text
+	.globl main
+main:
+	addi $s0, $0, 4	# 0x00400024
+	addi $s1, $0, 1	# 0x00400028
+	li $s2, 0x00400040 # 0x0040002c because lui, $s2 = sub 명령어 쪽
+			# 0x00400030 because ori
+	jr $s2		# 0x00400034, jump to 0x00400040
+
+
+	sra $s1, $s2, 2	# 0x00400038, 안쓰여짐
+	addi $s1, $s1, 1	# 0x0040003c, 안쓰여짐
+	sub $s1, $s1, $s0	# 0x00400040
+	add $s1, $s1, $s0	# 0x00400044
+
+	li $v0, 10
+	syscall	
+
+	.data
+
+
+--------------------------------------------------------------------------------------------------------------------
+# if 문
+	.text
+	.globl main
+main:
+	lw $s0, myf
+	lw $s1, myg
+	lw $s2, myh
+	lw $s3, myi
+	lw $s4, myj
+	
+	bne $s3, $s4, L1	# if $s3 != $s4 | i != j then jump to L1
+	add $s0, $s1, $s2	# $s0 = $s1 + $s2 | f = g + h
+	
+L1:
+	sub $s0, $s0, $s3	# $s0 = $s0 - $s3 | f = f - i
+	
+	sw $s0, myf
+
+	li $v0, 10
+	syscall	
+
+	.data
+myf:	.word 0
+myg:	.word 1
+myh:	.word 2
+myi:	.word 3
+myj:	.word 4
+
+
+--------------------------------------------------------------------------------------------------------------------
+# if else 문
+	.text
+	.globl main
+main:
+	lw $s0, myf
+	lw $s1, myg
+	lw $s2, myh
+	lw $s3, myi
+	lw $s4, myj
+	
+	bne $s3, $s4, L1	# if $s3 != $s4 | i != j then jump to L1
+	add $s0, $s1, $s2	# $s0 = $s1 + $s2 | f = g + h
+	j done
+L1:
+	sub $s0, $s0, $s3	# $s0 = $s0 - $s3 | f = f - i
+done:
+	sw $s0, myf
+
+	li $v0, 10
+	syscall	
+
+	.data
+myf:	.word 0
+myg:	.word 1
+myh:	.word 2
+myi:	.word 3
+myj:	.word 4
+
+
+--------------------------------------------------------------------------------------------------------------------
+# 반복문
+	.text
+	.globl main
+main:
+	# $s0 = pow, $s1 = x
+	addi $s0, $0, 1	# pow <- 1
+	add $s1, $0, $0	# x <- 0
+	addi $t0, $0, 128
+while:
+	beg $s0, $t0, done
+	sll $s0, $s0, 1	# pow <- pow * 2
+	addi $s1, $s1, 1	# x <- x + 1
+	j while
+
+done:
+	sw $s1, myx # myx = 7	
+
+	li $v0, 10
+	syscall	
+
+	.data
+pow:	.word 0
+myx:	.word 0
+
+
+--------------------------------------------------------------------------------------------------------------------
+# 반복문
+	.text
+	.globl main
+main:
+	# $s0 = i, $s1 = sum
+	addi $s1, $0, 0	# sum <- 0
+	add $s0, $0, $0	# i <- 0
+	addi $t0, $0, 10	# $t0 <- 10
+for:
+	beg $s0, $t0, done
+	add $s1, $s1, $s0	# sum <- sum + i
+	addi $s0, $s0, 1	# i <- i + 1
+	j for
+
+done:
+	sw $s1, sum
+
+	li $v0, 10
+	syscall	
+
+	.data
+sum:	.word 0
+
+
+--------------------------------------------------------------------------------------------------------------------
+# 반복문
+	.text
+	.globl main
+main:
+	#lui $s0, 0x1234
+	#ori $s0, $s0, 0x8000
+	#la : load address
+	la $s0, array
+	
+	lw $t1, 0($s0))
+	sll $t1, $t1, 1
+	sw $t1, 0($s0)
+	
+	lw $t1, 4($s0))
+	sll $t1, $t1, 1
+	sw $t1, 4($s0)
+
+	.data
+array:	.word 1, 2, 3, 4, 5	# size 5 인 array 배열, 각 값은 1 2 3 4 5 로 초기화됨
+
+--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
