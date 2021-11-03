@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void ex_01() {
+	/*
+	Dump of assembler code for function main:
+	0x0804841d <+0>:	push	ebp
+	0x0804841e <+1>:	mov	ebp,esp
+	0x08048420 <+3>:	and	esp,0xfffffff0
+	0x08048423 <+6>:	sub	esp,0x20
+	0x08048426 <+9>:	mov	DWORD PTR [esp+0x1c],0x5
+	0x0804842e <+17>:	jmp   	0x8048450 <main+51>
+	0x08048430 <+19>:	cmp	DWORD PTR [esp+0x1c],0x2
+	0x08048435 <+2>:	jne    	0x804844b <main+46>
+	0x08048437 <+26>:	mov	eax,DWORD PTR [esp+0x1c]
+	0x0804843b <+30>:	mov	DWORD PTR [esp+0x4],eax
+	0x0804843f <+34>:	mov	DWORD PTR [esp],0x80484f0
+	0x08048446 <+41>:	call	0x80482f0 <printf@plt>
+	0x0804844b <+46>:	sub    	DWORD PTR [esp+0x1c],0x1
+	0x08048450 <+51>:	cmp    	DWORD PTR [esp+0x1c],0x0
+	0x08048455 <+56>:	jne    	0x8048430 <main+19>
+	0x08048457 <+58>:	mov	eax,0x0
+	0x0804845c <+63>:	leave
+	0x0804845d <+64>:	ret
+	End of assembler dump.
+    */
+
+	for (int i = 5; 0 < i; i--) {
+			if (i == 2) printf("%d", i);
+	}
+}
+
+void main(void) {
+	ex_01();
+	getchar();
+}
