@@ -1,0 +1,38 @@
+#define ID_COMBOBOX 100
+
+char Items[][15] = { "Apple","Orange","Melon","Graph","Strawberry" };
+char str[128];
+HWND hCombo;
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+{
+	int i;
+	switch (iMessage) {
+	case WM_CREATE:
+		hCombo = CreateWindow("combobox", NULL, WS_CHILD | WS_VISIBLE | CBS_DROPDOWN,
+			10, 10, 100, 200, hWnd, (HMENU)ID_COMBOBOX, GetModuleHandle(NULL), NULL);
+		for (i = 0; i < 5; i++)
+			SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)Items[i]);
+		return 0;
+	case WM_COMMAND:
+		switch (LOWORD(wParam)) {
+		case ID_COMBOBOX:
+			switch (HIWORD(wParam)) {
+			case CBN_SELCHANGE:
+				i = SendMessage(hCombo, CB_GETCURSEL, 0, 0);
+				SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM)str);
+				SetWindowText(hWnd, str);
+				break;
+			case CBN_EDITCHANGE:
+				GetWindowText(hCombo, str, 128);
+				SetWindowText(hWnd, str);
+				break;
+			}
+		}
+		return 0;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
+}

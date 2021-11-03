@@ -1,0 +1,29 @@
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+{
+	HDC hDC;
+	PAINTSTRUCT ps;
+	double f;
+	int y;
+
+	switch (iMsg)
+	{
+	case WM_PAINT:
+		hDC = BeginPaint(hWnd, &ps);
+		SetMapMode(hDC, MM_HIENGLISH);
+		SetViewportOrgEx(hDC, 250, 250, NULL);
+		MoveToEx(hDC, -2000, 0, NULL);
+		LineTo(hDC, 2000, 0);
+		MoveToEx(hDC, 0, -2000, NULL);
+		LineTo(hDC, 0, 2000);
+		for (f = -2000; f < 2000; f++) {
+			y = (int)(sin(f * 3.14 / 180) * 100);
+			SetPixel(hDC, (int)f, y, RGB(0, 0, 0));
+		}
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	}
+	return DefWindowProc(hWnd, iMsg, wParam, lParam);
+}

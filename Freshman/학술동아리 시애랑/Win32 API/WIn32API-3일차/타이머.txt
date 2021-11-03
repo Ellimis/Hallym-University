@@ -1,0 +1,78 @@
+#include <Windows.h>
+#include <tchar.h> //멀티바이트와 유니코드 지원해주는 문자열 형식 함수
+#include <time.h>
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+VOID CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
+
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPTSTR pszLine, INT nShow) {
+	HWND hWnd; //윈도우 핸들
+	WNDCLASS wc; //윈도우 스타일이나 크기 등을 받기 위해 선언
+	MSG msg;
+
+	wc.style = CS_OWNDC | CS_DBLCLKS; //DBLCLKS 를 넣어야 마우스 더블 클릭할 수 있음
+	wc.lpfnWndProc = WndProc; //메세지 처리 함수 지정, 메세지가 전부 이 함수에서 처리
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(NULL, IDC_ICON);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = TEXT("MyApp");
+
+	RegisterClass(&wc); //윈도우 틀 등록, 로그인 같은 형식
+
+	hWnd = CreateWindow(TEXT("MyApp"), TEXT("Sample Application"),
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
+		CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+
+	ShowWindow(hWnd, SW_SHOW);
+
+	while (GetMessage(&msg, NULL, NULL, NULL)) {
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return msg.wParam;
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
+	HDC hDC;
+	PAINTSTRUCT ps;
+	time_t mytime;
+	static HANDLE hTimer;
+	static TCHAR str[26];
+	RECT rt = { 100, 100, 200, 100 };
+
+	switch (iMsg) {
+	case WM_CREATE: //윈도우창 시작시 나오는 메세지
+		hTimer = (HANDLE)SetTimer(hWnd, 1, 1000, NULL); //타이머 생성, 1번 타이머 (1.000)초마다
+		SendMessage(hWnd, WM_TIMER, 1, 0); //강제로 메세지 발생하는 함수
+		break;
+	case WM_TIMER: //타이머 호출 시 발생하는 메세지, wParam으로 타이머 받고 lParam으로 메세지 발생 시 호출될 함수가 전달
+		time(&mytime); //현재 시간을 구하는 함수
+		ctime_s(str, sizeof(str), &mytime); //초단위 시간을 문자열로 변환하는 함수
+		InvalidateRect(hWnd, &rt, TRUE);
+		break;
+	case WM_PAINT:
+		hDC = BeginPaint(hWnd, &ps);
+		TextOut(hDC, 100, 100, str, _tcslen(str) - 1);
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		KillTimer(hWnd, 1);
+		PostQuitMessage(0);
+		break;
+	}
+	return DefWindowProc(hWnd, iMsg, wParam, lParam);
+}
+
+void CALLBACK TimerProc(HWND hWnd, UINT iMsg, UINT idEvent, DWORD dwTime) {
+	HDC hDC;
+	INT i;
+
+	hDC = GetDC(hWnd);
+	for (i = 0; i < 100; i++) 
+		SetPixel(hDC, rand() % 500, rand() % 400, RGB(rand() % 256, rand() % 256, rand() % 256));
+	ReleaseDC(hWnd, hDC);
+}

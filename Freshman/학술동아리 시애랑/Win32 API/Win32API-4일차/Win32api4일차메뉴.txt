@@ -1,0 +1,81 @@
+#include <Windows.h>
+#include <tchar.h> //멀티바이트와 유니코드 지원해주는 문자열 형식 함수
+#include <time.h>
+#include <stdio.h>
+#include "resource.h"
+
+#define IDS_STRING101 101
+#define IDR_MENU1 102
+#define ID_FILE_MENU1 40001
+#define ID_FILE_MENU2 40002
+#define ID_FILE_EXIT 40003
+
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+void CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
+
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPTSTR pszLine, INT nShow) {
+	HWND hWnd; //윈도우 핸들
+	WNDCLASS wc; //윈도우 스타일이나 크기 등을 받기 위해 선언
+	MSG msg;
+
+	wc.style = CS_OWNDC;
+	wc.lpfnWndProc = WndProc; //메세지 처리 함수 지정, 메세지가 전부 이 함수에서 처리
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(NULL, IDC_ICON);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+	wc.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1); //원래는 NULL
+	wc.lpszClassName = TEXT("MyApp");
+
+	RegisterClass(&wc); //윈도우 틀 등록, 로그인 같은 형식
+
+	hWnd = CreateWindow(TEXT("MyApp"), TEXT("Sample Application"),
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
+		CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+
+	ShowWindow(hWnd, SW_SHOW);
+
+	while (GetMessage(&msg, NULL, NULL, NULL)) {
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return 0;
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
+	HDC hDC;
+	PAINTSTRUCT ps;
+	static RECT rt;
+	static TCHAR TextBuffer[256];
+
+	switch (iMsg) {
+	case WM_COMMAND:
+		switch (LOWORD(wParam)) {
+		case ID_FILE_MENU1:
+			MessageBox(hWnd, "첫번째 메뉴를 선택했습니다.", "Menu Demo", MB_OK);
+			break;
+		case ID_FILE_MENU2:
+			MessageBox(hWnd, "두번째 메뉴를 선택했습니다.", "Menu Demo", MB_OK);
+			break;
+		case ID_FILE_EXIT:
+			PostQuitMessage(0);
+			break;
+		}
+	case WM_CREATE:
+		LoadString(GetModuleHandle(NULL), IDS_STRING101, TextBuffer, 256);
+		break;
+	case WM_PAINT:
+		hDC = BeginPaint(hWnd, &ps);
+		TextOut(hDC, 100, 100, TextBuffer, _tcslen(TextBuffer));
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		KillTimer(hWnd, 1);
+		PostQuitMessage(0);
+		break;
+	}
+	return DefWindowProc(hWnd, iMsg, wParam, lParam);
+}

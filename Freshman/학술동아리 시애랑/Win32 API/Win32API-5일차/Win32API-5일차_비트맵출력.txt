@@ -1,0 +1,32 @@
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+{
+	HDC hDC, hMem;
+	PAINTSTRUCT ps;
+	POINT ar[] = { 25, 10, 125, 10, 140, 30, 10, 30, 25, 10 };
+	HBRUSH BrR, BrB, BrY, OldBr;
+	RECT rect;
+	HBITMAP hMyBitmap, hOldBitmap;
+
+	switch (iMsg)
+	{
+	case WM_PAINT:
+		hDC = BeginPaint(hWnd, &ps);
+		hMem = CreateCompatibleDC(hDC);
+		hMyBitmap = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2));
+		hOldBitmap = reinterpret_cast<HBITMAP>(SelectObject(hMem, hMyBitmap));
+		//BitBlt(hDC, 0, 0, 200, 200, hMem, 0, 0, SRCCOPY);
+		StretchBlt(hDC, 0, 0, 1000, 1000, hMem, 0, 0, 200, 200, SRCCOPY);
+		SelectObject(hMem, hOldBitmap);
+		DeleteObject(hMyBitmap);
+		DeleteDC(hMem);
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_SIZE:
+		InvalidateRect(hWnd, NULL, TRUE);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	}
+	return DefWindowProc(hWnd, iMsg, wParam, lParam);
+}

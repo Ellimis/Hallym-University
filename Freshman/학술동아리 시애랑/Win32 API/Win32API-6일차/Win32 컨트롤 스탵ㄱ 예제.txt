@@ -1,0 +1,18 @@
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+{
+	HDC hdc;
+	PAINTSTRUCT ps;
+	HBRUSH MyBrush, OldBrush;
+	int TempPos = 0;
+
+	switch (iMessage) {
+	case WM_CREATE:
+		CreateWindow("static", "Only Text", WS_CHILD | WS_VISIBLE,
+			20, 20, 100, 25, hWnd, (HMENU)-1, GetModuleHandle(NULL), NULL);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	}
+	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
+}

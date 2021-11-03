@@ -1,0 +1,77 @@
+#include <Windows.h>
+#include <tchar.h> //멀티바이트와 유니코드 지원해주는 문자열 형식 함수
+#include <time.h>
+#include <stdio.h>
+#include "resource.h"
+
+#define IDS_STRING101 101
+#define IDR_MENU1 102
+#define ID_FILE_MENU1 40001
+#define ID_FILE_MENU2 40002
+#define ID_FILE_EXIT 40003
+
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+void CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
+
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPTSTR pszLine, INT nShow) {
+	HWND hWnd; //윈도우 핸들
+	WNDCLASS wc; //윈도우 스타일이나 크기 등을 받기 위해 선언
+	MSG msg;
+
+	wc.style = CS_OWNDC;
+	wc.lpfnWndProc = WndProc; //메세지 처리 함수 지정, 메세지가 전부 이 함수에서 처리
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(NULL, IDC_ICON);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+	wc.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1); //원래는 NULL
+	wc.lpszClassName = TEXT("MyApp");
+
+	RegisterClass(&wc); //윈도우 틀 등록, 로그인 같은 형식
+
+	hWnd = CreateWindow(TEXT("MyApp"), TEXT("Sample Application"),
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
+		CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+
+	ShowWindow(hWnd, SW_SHOW);
+
+	while (GetMessage(&msg, NULL, NULL, NULL)) {
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return 0;
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
+	HDC hDC;
+	PAINTSTRUCT ps;
+	HBRUSH hMyBrush, hOldBrush;
+	HPEN hMyPen, hOldPen;
+
+	switch (iMsg) {
+	case WM_PAINT:
+		hDC = BeginPaint(hWnd, &ps);
+		hMyPen = CreatePen(PS_SOLID, 5, RGB(0, 0, 255));
+		hOldPen = reinterpret_cast<HPEN>(SelectObject(hDC, hMyPen));
+
+		hMyBrush = CreateSolidBrush(HS_DIAGCROSS);
+		//hMyBrush = reinterpret_cast<HBRUSH>(GetStockObject(GRAY_BRUSH)); 
+				//윈도우즈에서 제공하는 스톡오브젝트 사용했기 때문에 배경색은 제거하지 않아도 된다.
+		hOldBrush = reinterpret_cast<HBRUSH>(SelectObject(hDC, hMyBrush));
+		Rectangle(hDC, 50, 50, 300, 200);
+
+		SelectObject(hDC, hOldBrush);
+		SelectObject(hDC, hOldPen);
+		DeleteObject(hMyPen);
+		//DeleteObject(SelectObject(hDC, hOldPen)); 으로 표시할 수 있음.
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	}
+	return DefWindowProc(hWnd, iMsg, wParam, lParam);
+}

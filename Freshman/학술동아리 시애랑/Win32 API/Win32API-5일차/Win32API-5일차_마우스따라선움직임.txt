@@ -1,0 +1,41 @@
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+{
+	HDC hDC;
+	PAINTSTRUCT ps;
+	static INT sx, sy, oldx, oldy;
+	int ex, ey;
+	static BOOL bNowDraw = FALSE;
+	
+	switch (iMsg)
+	{
+	case WM_LBUTTONDOWN:
+		sx = LOWORD(lParam);
+		sy = HIWORD(lParam);
+		oldx = sx;
+		oldy = sy;
+		bNowDraw = TRUE;
+		return 0;
+	case WM_LBUTTONUP:
+		bNowDraw = FALSE;
+		return 0;
+	case WM_MOUSEMOVE:
+		if (bNowDraw == TRUE) {
+			hDC = GetDC(hWnd);
+			SetROP2(hDC, R2_NOT);
+			MoveToEx(hDC, sx, sy, NULL);
+			LineTo(hDC, oldx, oldy);
+			ex = LOWORD(lParam);
+			ey = HIWORD(lParam);
+			MoveToEx(hDC, sx, sy, NULL);
+			LineTo(hDC, ex, ey);
+			oldx = ex;
+			oldy = ey;
+			ReleaseDC(hWnd, hDC);
+		}
+		return 0;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	}
+	return DefWindowProc(hWnd, iMsg, wParam, lParam);
+}

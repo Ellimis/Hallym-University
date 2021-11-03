@@ -1,0 +1,71 @@
+#define ID_SCRRED 100
+#define ID_SCRGREEN 101
+#define ID_SCRBLUE 102
+
+HWND hRed, hGreen, hBlue;
+COLORREF Red, Green, Blue;
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+{
+	HDC hdc;
+	PAINTSTRUCT ps;
+	HBRUSH MyBrush, OldBrush;
+	int TempPos;
+
+	switch (iMessage) {
+	case WM_CREATE:
+		hRed = CreateWindow("scrollbar", NULL, WS_CHILD | WS_VISIBLE | SBS_HORZ,
+			10, 10, 200, 20, hWnd, (HMENU)ID_SCRRED, GetModuleHandle(NULL), NULL);
+		hGreen = CreateWindow("scrollbar", NULL, WS_CHILD | WS_VISIBLE | SBS_HORZ,
+			10, 40, 200, 20, hWnd, (HMENU)ID_SCRGREEN, GetModuleHandle(NULL), NULL);
+		hBlue = CreateWindow("scrollbar", NULL, WS_CHILD | WS_VISIBLE | SBS_HORZ,
+			10, 70, 200, 20, hWnd, (HMENU)ID_SCRBLUE, GetModuleHandle(NULL), NULL);
+		SetScrollRange(hRed, SB_CTL, 0, 255, TRUE);
+		SetScrollPos(hRed, SB_CTL, 0, TRUE);
+		SetScrollRange(hGreen, SB_CTL, 0, 255, TRUE);
+		SetScrollPos(hGreen, SB_CTL, 0, TRUE);
+		SetScrollRange(hBlue, SB_CTL, 0, 255, TRUE);
+		SetScrollPos(hBlue, SB_CTL, 0, TRUE);
+		return 0;
+	case WM_HSCROLL:
+		if ((HWND)lParam == hRed) TempPos = Red;
+		if ((HWND)lParam == hGreen) TempPos = Green;
+		if ((HWND)lParam == hBlue) TempPos = Blue;
+		switch (LOWORD(wParam)) {
+		case SB_LINELEFT:
+			TempPos = max(0, TempPos - 1);
+			break;
+		case SB_LINERIGHT:
+			TempPos = min(255, TempPos + 1);
+			break;
+		case SB_PAGELEFT:
+			TempPos = max(0, TempPos - 10);
+			break;
+		case SB_PAGERIGHT:
+			TempPos = min(255, TempPos + 10);
+			break;
+		case SB_THUMBTRACK:
+			TempPos = HIWORD(wParam);
+			break;
+		}
+		if ((HWND)lParam == hRed) Red = TempPos;
+		if ((HWND)lParam == hGreen) Green = TempPos;
+		if ((HWND)lParam == hBlue) Blue = TempPos;
+		SetScrollPos((HWND)lParam, SB_CTL, TempPos, TRUE);
+		InvalidateRect(hWnd, NULL, FALSE);
+		return 0;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		MyBrush = CreateSolidBrush(RGB(Red, Green, Blue));
+		OldBrush = (HBRUSH)SelectObject(hdc, MyBrush);
+		Rectangle(hdc, 10, 100, 210, 200);
+		SelectObject(hdc, OldBrush);
+		DeleteObject(MyBrush);
+		EndPaint(hWnd, &ps);
+		return 0;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
+}

@@ -1,0 +1,45 @@
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+{
+	HDC hDC;
+	PAINTSTRUCT ps;
+	POINT ar[] = { 25, 10, 125, 10, 140, 30, 10, 30, 25, 10 };
+	HBRUSH BrR, BrB, BrY, OldBr;
+	RECT rect;
+	
+	switch (iMsg)
+	{
+	case WM_PAINT:
+		hDC = BeginPaint(hWnd, &ps);
+		BrR = CreateSolidBrush(RGB(255, 0, 0));
+		BrB = CreateSolidBrush(RGB(0, 0, 255));
+		BrY = CreateSolidBrush(RGB(255, 255, 0));
+
+		SetMapMode(hDC, MM_ISOTROPIC);
+		SetWindowExtEx(hDC, 160, 100, NULL);
+		GetClientRect(hWnd, &rect);
+		SetViewportExtEx(hDC, rect.right, rect.bottom, NULL);
+
+		OldBr = (HBRUSH)SelectObject(hDC, BrR);
+		Rectangle(hDC, 20, 30, 130, 90);
+		SelectObject(hDC, BrB);
+		Polygon(hDC, ar, 5);
+		SelectObject(hDC, BrY);
+		Rectangle(hDC, 30, 40, 60, 60);
+		Rectangle(hDC, 90, 40, 120, 70);
+		Ellipse(hDC, 135, 5, 155, 25);
+
+		SelectObject(hDC, OldBr);
+		DeleteObject(BrR);
+		DeleteObject(BrB);
+		DeleteObject(BrY);
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_SIZE:
+		InvalidateRect(hWnd, NULL, TRUE);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	}
+	return DefWindowProc(hWnd, iMsg, wParam, lParam);
+}

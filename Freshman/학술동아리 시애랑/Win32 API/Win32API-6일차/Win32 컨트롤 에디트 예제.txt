@@ -1,0 +1,33 @@
+#define ID_EDIT 100
+HWND hEdit;
+char str[128];
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+{
+	HDC hdc;
+	PAINTSTRUCT ps;
+	HBRUSH MyBrush = NULL, OldBrush = NULL;
+
+	switch (iMessage) {
+	case WM_CREATE:
+		hEdit = CreateWindow("edit", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER |
+			ES_AUTOHSCROLL, 10, 10, 200, 25, hWnd, (HMENU)ID_EDIT,
+			GetModuleHandle(NULL), NULL);
+		
+		break;
+	case WM_COMMAND:
+		switch (iMessage) {
+		case ID_EDIT:
+			switch (HIWORD(wParam)) {
+			case EN_CHANGE:
+				GetWindowText(hEdit, str, 128);
+				SetWindowText(hWnd, str);
+			}
+		}
+		return 0;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
+}

@@ -1,0 +1,15 @@
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
+	switch (iMsg) {
+	case WM_CHAR:
+		MessageBox(NULL, TEXT("심화 어렵다... 느엠ㄴ으ㅔ므네"), TEXT("키보드 클릭"), MB_OK);
+		return 0;
+	case WM_LBUTTONDOWN:
+		MessageBox(NULL, TEXT("느에에에"), TEXT("마우스 클릭"), MB_OK);
+		return 0;
+	case WM_DESTROY:
+		MessageBox(NULL, TEXT("Good Bye"), TEXT("TItle"), MB_OK); //종료시 제목이 Title인 Hello 창
+		PostQuitMessage(0);
+		return 0;
+	}
+	return DefWindowProc(hWnd, iMsg, wParam, lParam);
+}
