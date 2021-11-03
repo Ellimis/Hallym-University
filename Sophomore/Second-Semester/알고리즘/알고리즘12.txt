@@ -1,0 +1,20 @@
+선택 정렬 - 가장 작은걸 택해서 i번쨰에 이동
+for int i = 0; i < length-1 i++
+   for int j = i+1; j < length j++
+
+버블 정렬 - 매 시행마다 두개씩 비교해서 큰걸 뒤로 이동
+for int i = length-1 i >= 0 i--
+   for int j = 0 j < i j++
+
+삽입 정렬 - 정렬된 부분과 아닌 부분을 나눠 아닌 부분에서 하나를 가져와 정렬된 부분에 알맞는 곳에 삽입
+// 0번째건 이미 정렬되있다는 의미이므로 1부터 검사
+for int i = 1 i < n i++
+   k = a[i] // k 는 임시, 처리되야될 i 번째 값
+   int j = 1
+   
+   while(j > 0 && a[j-1] > k) {
+      a[j] = a[j-1]
+      j--
+   }
+   a[j] = k
+// for end
