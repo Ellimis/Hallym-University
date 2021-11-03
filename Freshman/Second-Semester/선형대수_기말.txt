@@ -1,0 +1,76 @@
+import matplotlib.pyplot as plt		//matplotlib.pyplot 라이브러리 가져와서 plt 로 줄여씀
+import matplotlib.patches as pat	//matplotlib.patches 사각형을 칠하기 위한 라이브러리
+
+%matplotlib widget 			//jupyter 에 그림 그리기 위함
+ax=plt.gca()			//plot 할 그림의 축을  가져옴
+arg={'angles':'xy', 'scale_units':'xy', 'scale': 1}//xy 축 크기 결정
+ax.grid()				//바둑판처럼 표시
+ax.quiver(x, y, a, b, **arg)		//x, y 에서 벡터(a, b)를 **arg에 맞춰서 그림
+ax.set_xlim(x1, x2)			//x1 <= x < x2 로 x 좌표의 최소 최대 크기 지정
+ax.set_ylim(y1, y2)			//y1 <= y < y2 로 y 좌표의 최소 최대 크기 지정
+ax.text(x, y, 'str')			//x, y 좌표에 str 에 있는 문자(열) 표시
+plt.plot(x, y, 'b.')			//x, y 좌표에 파랑색(b) 점(.) 을 찍는다
+
+x0 = numpy.array([2, 0, 4])
+xp=np.array(range(int(x0[0]-5),int(x0[0]+6)))
+yp=np.array(range(int(x0[1]-5),int(x0[1]+6)))
+xv, yv = np.meshgrid(xp,yp)
+zv=10+2*yv-3*xv #from 3x-2y+z=10
+ax.scatter(xv,yv,zv,c='b',marker='.')	//xv, yv, zv 의 위치를 파랑(b), 점(.) 으로 찍는다.
+이떄 xv, yv, zv는 범위여도 되고 값이여도 됨(ex) ax.scatter(x0[0], x0[1], x0[2], c='r', marker='*')
+
+벡터 ws = numpy.vstack((x1, x2, x3))	//벡터 x1, x2, x3 를 한번에 그리기 위한 vertical stacking
+ax.quiver(np.zeros(벡터 수(3)), np.zeros(3), ws[: , 0], ws[:, 1], **arg)
+ax.set_aspect('equal')			//x, y 를 같은 규모로 만들기 위함
+ax.axhline(0, color='g')		// y = 0 을 초록색(g) 로 그림(가로 줄)
+ax.axvline(0, color='g')		// x = 0 을 초록색(g) 로 그림(세로 줄)
+
+rect = pat.Rectangle((0,0), a, b, facecolor='b', alpha=0.3)
+ax.add_patch(rect)			//(0, 0) 에서 x = a, y = b 까지 파랑색(b) 투명도(0.3) 으로 그린다.
+x=np.linspace(a, b, n)		//x, y 를 a 에서 b 까지 n 칸으로 나누어서 표현
+y=x				//(ex) np.linspace(-2, 2, 20) -> -2에서 2까지 20칸 -> -2.0 에서 2.0 까지
+ax.plot(x,y,c='b')			//x, y의 정보를 가진 파랑색 선을 그림(y = x 선이 생김)
+
+pts = np.array([[-2, 2], [2, -2], [2, 2]])	//각 세 점을 잇는 구역에 파랑색 투명도(0.3)으로 그림을 그린다
+tri = pat.Polygon(pts, facecolor='b', alpha=0.3)	//삼각형을 그릴 수 있는 식
+ax.add_patch(tri)
+------------------------------------------------------------------------------------------------------------
+import numpy as np			//각종 함수
+from sympy import *			//Matrix 함수 쓰기 위한 라이브러리
+import math			//cos, sin 등등 사용
+
+x = list()				//x에 빈 list 저장
+​
+====== (n 각형일 때) ======
+for i in range(1, n+1, 1):
+    x.append([math.cos(i*(2*math.pi/n)), math.sin(i*(2*math.pi/n))])
+    
+x = np.array(x)
+for i in range(n):
+    ax.quiver(0, 0, x[i][0], x[i][1], **arg)
+​
+plt.xticks(np.arange(-1, 2))
+plt.yticks(np.arange(-1, 2))
+​
+====== 정n각형의 한변의 길이 =======
+print(np.linalg.norm(x[0]))
+​
+====== 정n각형의 내각 ======
+val = np.dot(x[0], x[1])/(np.linalg.norm(x[0])*np.linalg.norm(x[1]))
+np.arccos(val)*180/np.pi
+
+-----------------------------------------------------------------------------------------------------------
+numpy.linalg.norm(x)		//벡터 x 의 크기, sqrt(x1^2 + x2^2)
+numpy.square(n)			//n 제곱
+numpy.dot(a, b)			//a, b 내적
+numpy.cross(a, b)			//a, b 외적
+
+-----------------------------------------------------------------------------------------------------------
+====== 3차원일 때 =======
+import matplotlib.pyplot as plt		//matplotlib.pyplot 라이브러리 가져와서 plt 로 줄여씀
+%matplotlib widget 			//jupyter 에 그림 그리기 위함
+from mpl_toolkits.mplot3d import Axes3D //3차원 축을 가져옴
+
+numpy.linalg.norm(np.cross(X, Y))/2	//A, B, C 세 점으로 이루어지는 삼각형 넓이, X = 벡터AB, Y = 벡터AC
+ax = plt.gca(projection='3d')
+ax.quiver(x, y, z, a, b, c, color='k')	//x, y, z 좌표에서 벡터 (a, b, c) 를 색 k(검정)에 맞춰서 그림

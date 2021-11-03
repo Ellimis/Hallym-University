@@ -1,0 +1,205 @@
+import numpy as np
+from sympy import *
+---------------------------------------
+행렬
+
+1. 행렬 (Matrix)
+	m행(row), n열(column) 으로 이루어진 행렬
+	A = np.array([[1], [3], [2]]) -> np.shape(A) => (3, 1)
+
+2. 정사각행렬 (Square Matrix)
+	m과 n 이 같은 행렬
+	A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) -> np.shape(A) => (3, 3)
+
+3. 단일행렬 (I, Identity Matrix)
+	대각성분이 모두 1이고 나머진 0인 행렬
+	I3 = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+	I1 = np.array([1])
+
+4. 행렬의 덧셈 뺄셈, 스칼라 곱
+	행렬의 덧셈 뺼셈 곱은 각 행과 열에 있는 값끼리 더하고 뺴고 곱하면 된다.
+
+5. 상등 
+	A= B, 즉 모든 행열이 같은 경우
+
+6. 영행렬(항등원, Zero Matrix)
+	모든 행열이 0 인 행렬, np.zeros((m, n)) -> m행 n 열에 0으로 채워진 행렬을 만든다
+
+7. 역원 (Inverse Element)
+	A + ? = 0 이 되게 하는 ?. 곱셈에서의 역수를 일반화한 개념
+
+8. 행렬의 곱
+	행렬의 곱은 내적으로 한다
+	A 가 m 행 n 열이고, B 가 k 행 r 열일 때, np.shape(A*B) = (m, r) 이다 (단, n = k 인 경우)
+				            np.shape(B*A) = (k, n) 이다 (단 m = r 인 경우)
+
+9. 행렬의 거듭제곱
+	같은 행렬 여러번 곱하는 것
+	I = np.array([[1, 0], [1, 1]]) 에서 I^3 은 I * I * I = np.array([[1, 0], [3, 1]]) 이다.
+	I^0 = 단일행렬
+
+10. 전치행렬 (Transepose Matrix)
+	대각성분을 기준으로 위치를 반전시킨 행렬
+	A = np.array([[1, 3], [4, 2]])
+	A.T = np.array([[1, 4], [3, 2]])
+
+11. 대칭행렬 (Symmetric Matrix)
+	대각성분을 기준으로 좌우 행열의 값이 같음
+	A = A^T 일때
+	(A + A.T).T = A.T + (A.T).T = A + A.T 이므로 A + A.T 는 대칭행렬
+
+12. 교배행렬 (Alternating Matrix)
+	주대각선이 모두 0인 행렬
+	A = -A^T 일때
+	(A - A.T).T = A.T - (A.T).T = -(A - A.T) 이므로 A - A.T 는 대칭행렬
+
+13. 소행렬식 (Minor)
+	A = (aij)mxn 에서 i 행 j 열을 빼고 만든 (n-1) 차 행렬의 행렬식.
+	Mij 로 표현, aij = Mij
+
+14. 여인수 (Cofator)
+	aij 의 여인수 Aij = (-1)^ij * Mij
+
+15. 행렬식 (Determinent)
+	det(A) 은 행렬에서 한 행을 기준으로 (m = 1) 여인수들의 합을 구하는 것이다.
+	det(A) = a11*A11 + ..................... + a1n*A1n
+	np.linalg.det(A) 로 구할 수 있다.
+	det(A + B) != det(A) + det(B)
+	det(A*B) == det(A)*det(B)
+
+16. 상, 하삼각행렬 (Upper / Lower Triangular Matrix)
+	삼각형 모양으로 행렬안에 0이 있는 행렬
+	각각 후치법, 전치법으로 해를 찾을 수 있다
+
+17. 역행렬 (Inverse Matrix)
+	det(A^(-1)) = 1 / det(A), (A^T)^(-1) == (A^(-1))^T
+
+18. 여인수행렬 (Cofator Matrix)
+	여인수로만 이루어진 행렬
+	a = np.array( ~~ )
+	c = np.array([[A11, A12, A13], [A21, A22, A23], [A31, A32, A33]])
+
+19. 수반행렬 (Adjoint Matrix)
+	여인수행렬의 전치행렬
+	c.T = np.array([[A11, A21, A31], [A12, A22, A32], [A13, A23, A33]])
+	Adj(A) = C^T
+
+++
+	2차정방행렬일 때 A = np.array([[a, b], [c, d]]) 라면
+	A^(-1) = (1/ad-bc)*np.array([[d, -b], [-c, a]])
+	A^(-1) = (1/det(A))*adj(A)
+	A*adj(A) = det(A)*I
+-------------------------------
+선형연립방정식 
+
+1. 해집합 (Solution Set)
+	연립방정식의 해들의 집합
+
+2. 동차방정식 (Honogeneous Equation)
+	bi = 0 (i = 1 ~ m), 모든 결과가 0
+
+3. 비동차 방정식 (Nonhomogeneous Equation)
+	적어도 하나의 bi != 0
+
+4. 양립, 불능, 부정 (Consistent / Inconsistent, indeterminate)
+	양립 : 적어도 하나의 해
+	불능 : 해가 없음
+	부정 : 해가 무수히 많음
+
+5. 자명한 해, 자명하지 않은 해 (Trival / Nontrival Solution)
+	자명한 해 : xi = 0 (i = 1 ~ n)
+	자명하지 않은 해 : 적어도 하나의 xi != 0
+
+6. 계수 행렬 (Coefficient Matrix)
+	Ax = b 방정식을 계수만 가져와서 만든 행렬
+
+7. 두 연립방정식의 동치 (Equivalent)
+	두 연립방정식의 해집합이 같은 경우 동치 라고 한다
+
+8. 후치법, 전치법 (Back / Forward Substitution)
+	상 / 하 삼각행렬에서 쓰이는 해 찾는 방법
+
+9. 첨가행렬 (Augmented matrix)
+	Ax = b 에서
+	[A|b] 로 표현
+	np.column_stack(A, b) 로 표현
+
+10. Gauss - Jordan 소거법
+	기본 행 연산 을 이용한 기약행사다리꼴로 만드는 방법 
+
+11. 선도변수, 자유변수 (Leading / Free Variable)
+	선도변수 : 행사다리꼴 행렬(Row Echelon From) 에서 처음으로 0 이 아닌 변수, 해가 있는 변수
+	자유변수 : 선도변수가 아닌 나머지
+
+12. 일반해, 특수해 (General / Particular Solution)
+	일반해 : 모든 식으로 나타내는 식으로 표현된 해, (x1, x2, x3, x4) = (-1-4t, 6-2t, 2-3t, t)
+	특수해 : 자유변수에 임의 값을 넣어서 구한 해, t = 1 일때 (-5, 4, -1, 1)
+
+13. 자유도 (Degree of Freedom)
+	변수의 개수 n 에서 모두 0이 아닌 행의 개수 r 을 뺸 n-r 이 자유도이다
+	즉, 자유변수의 갯수가 자유도이다.
+
+14. 미정 동차 방정식 (Undetermined Homogeneous Equation)
+15. 미정 비동차 방정식 (Undetermined Nonhomogeneous Equation)
+	동차 방정식 : 상수가 모두 0
+	비동차 방정식 : 상수가 하나라도 0 이 아닌 것
+	미정 방정식 : 미지수의 개수가 방정식의 개수보다 많은 것
+	 - (m < n) -> 자명한, 자명하지 않은 해를 가짐 -> 해가 무수히 많다
+	 - 해가 없을 수도 있다 (ex, 나란한 3차원 평면의 식 2개)
+	 - m=1, n=2 인 경우는 항상 부정
+	 - m=2, n=3 인 경우 해가 없는 경우가 있다. (나란한 3차원 평면)
+
+16. 기본행렬 (Elementary Matrix)
+	단위 행렬에 기본 행 연산 중 한 가지만 실시하여 얻어지는 행렬
+
+17. Crammer 공식
+	xi = det(Hi)/det(A) (i = 1 ~ n), Hi = [A1 .... Ai-1, Bi, Ai+1, .... An]
+	각 해를 바로 구하고 싶을 때 det 만으로도 구할 수 있다.
+	Ax = b 에서 A 가 가역행렬이고  정사각행렬이면 x = A^(-1)*b 이다.
+
+18. 정사각행렬에서의 4가지 공식
+	1.) A는 가역행렬이다
+	2.)동차 방정식 Ax = 0 는 자명한 해만 가진다.
+	3.)A 의 기약 행사다리꼴 행렬은 I(단위행렬) 이다
+	4.)A를 기본행렬의 곱으로 표현할 수 있다.
+	1 -> 2 -> 3 -> 4 -> 1 이므로 4개가 동치이다.
+
+++ 
+	역행렬 구하는 방법
+	-- 1) Gauss-Jordan 소거법으로 기존 행렬을 기약행사다리꼴로 만드는 과정에서 단위행렬에도 똑같이 적용하면서 역행렬을 구함
+	-- 2) 수반행렬 이용 : A^(-1) = (1/det(A))*adj(A)
+
+------------------------------------------------------------------------
+파이썬
+	--------------------------------------  import numpy as np
+	
+	A = np.array([ ~ ]) : 행렬 생성
+	A.shape : 행렬의 크기 반환 (m, n) // 같은 의미로 np.shape(A) 도 됨
+		r, c = np.shape(A) 하면 A 가 m 행 n 열일 때, r = m, c = n 값을 가짐
+	np.eye(n) : 크기가 (n, n) 인 단위 행렬
+	n 번째 행만 : A[n-1, :]
+	n 번째 열만 : A[: , n-1]
+		: 에서 0 : m 이라 하면 n-1 열(행) 에서 0에서 부터 m 번째 행(열) 을 가져오겠단 의미
+		A[:, n-1] 에서 n-1 이 -1, -2 라면 우측 열에서부터 첫번째, 두번째 열을 가져온단 의미
+		A[n-1, :] 에서 n-1 이 -1, -2 라면 하단 행에서부터 첫번째, 두번째 열을 가져온단 의미
+	대각성분만 가져옴 : np.diag(A) -> array([1, 7, 2)]
+			np.diag(np.diag(A)) -> array[[1, 0, 0], [0, 7, 0], [0, 0, 2]])
+	A.T 는 전치행렬로 바꿈
+		(A*B).T = B.T * A.T // (A + B).T = A.T + B.T // (A.T).T = A // (kA).T = k*A.T
+	행렬의 크기를 알고싶을 때 대각합 np.trace(A) 이용, 대각성분들의 합만 출력
+		np.trace(A.T) = np.trace(A) // np.trace(A + B) = np.trace(A) + np.trace(B) // np.trace(kA) = k*np.trace(A)
+	두 행렬의 곱 : np.dot(A, B)
+	행렬식 : np.linalg.det(A)
+	역행렬 : B = np.linalg.inv(A) -> A 의 역행렬은 B // AB = I = BA
+	첨가행렬 : A가 방정식, b 가 방정식 결과이면 np.column_stack(A, b) 로 하나의 행렬로 붙일 수 있다
+	행렬 복제 : np.copy(~~) 행렬을 복제할수도 있고 열이나 행을 복제할수도 있다
+	np.zeros(n) : 한 행이 n 개의 열로 모두 0으로 이루어진 행열을 만듬
+		x = np.zeros(5) ==> array([0, 0, 0, 0, 0])
+	np.zeros((m, n)) : m 행 n 열이 모두 0으로 이루어진 행렬을 만듬
+	
+	-------------------------------------- from sympy import *
+
+	Matrix(A) 는 A의 행렬 출력
+	Matrix(A).rref() 는 A 의 기약행사다리꼴과 pivot column 을 알려주는 행렬 출력
+		rref ( Reduced Row Echelon Form 의 약자)
+	
