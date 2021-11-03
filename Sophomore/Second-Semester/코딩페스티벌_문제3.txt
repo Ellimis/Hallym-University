@@ -1,0 +1,126 @@
+#include <stdio.h>
+#include <stdlib.h> // for atoi
+#include <string.h> // for strtok_s, strcmp
+
+// 3번
+int main() 
+{
+	// 파일 포인터, 파일에 들어있는 총 데이터 수를 저장할 count 변수
+	FILE* fp = NULL;
+	int person_count = 0;
+
+	// csv파일을 "읽기"로 열음
+	fopen_s(&fp, "property_data.csv", "r");
+	
+	if (fp != NULL)
+	{
+		// 파일로부터 데이터를 받을 장소인 buffer와 그 데이터를 구분할 delimiter
+		char buffer[256];
+		char delimiter[] = ",";
+
+		// 첫줄 처리
+		fgets(buffer, sizeof(buffer), fp);
+
+		// 각각 최댓값, 최솟값, 평균값, 중앙값을 담당
+		// 3-1 번을 위한 변수들
+		int max = 0;
+		int min = 100000000;
+		int mean = 0;
+		int median = 0;
+
+		// 3-2 번을 위한 변수들
+		char findCity[30];
+		int meanByCity = 0;
+		int countByCity = 0;
+
+		// 3-3 번을 위한 변수들
+		int findYear = 1900;
+		int countByYear = 0;
+
+		// 입력받는 거래처와 연도 데이터
+		scanf_s("%s", findCity, sizeof(findCity));
+		scanf_s("%d", &findYear);
+
+		// eof(파일의 끝부분)를 만날 때까지 반복
+		while (!feof(fp)) {
+			// 데이터 중에서 한 줄을 읽어서 buffer에 삽입
+			fgets(buffer, sizeof(buffer), fp);
+			// 사람 수 추가
+			person_count++;
+			
+			// 매번 데이터 한 줄 마다의 거래처, 년도, 가격에 대해 저장할 변수
+			char* propertycity;
+			char* year;
+			int price = 0;
+
+			// strtok_s를 통해 token에 구분자의 앞부분, 그리고 next_token에 구분자의 뒷부분을 저장
+			char* p_next_token;
+			char* p_token;
+			
+			// 각각의 데이터에 일시적으로 값을 집어넣음
+			p_token = strtok_s(buffer, delimiter, &p_next_token);
+			propertycity = p_token;
+
+			p_token = strtok_s(NULL, ",", &p_next_token);
+			year = p_token;
+
+			p_token = strtok_s(NULL, ",", &p_next_token);
+			// null에러 처리, char * -> int 로 바꿔주는 atoi함수
+			if(p_token != NULL)
+				price = atoi(p_token);
+			
+			// 맨 마지막 줄에 대한 처리
+			if (year == NULL && price == 0) 
+			{
+				person_count--;
+				break;
+			}
+
+			// 평균값 계산을 위한 덧셈
+			mean += price;
+
+			// 최댓값
+			if (max < price)
+				max = price;
+
+			// 최솟값
+			if (min > price)
+				min = price;
+
+			// 입력받은 거래처일 때 그 거래처만의 평균값을 위한 작업
+			if (strcmp(propertycity, findCity) == 0) 
+			{
+				meanByCity += price;
+				countByCity++;
+			}
+
+			// year로부터 - 구분자의 첫번째 즉, 연도를 받아 p_token에 넣음
+			p_token = strtok_s(year, "-", &p_next_token);
+
+			if (atoi(p_token) == findYear)
+				countByYear++;
+		}
+
+		// 3-1번
+		char* p_str[4] = { " 최댓값 ", " 최솟값 ", " 평균값 ", " 중앙값  " };
+		const char* p_str_title_formet[4] = {
+			"  %s  ", "  %s  ", "  %s  ", "  %s  \n"
+		};
+
+		for (int i = 0; i < 4; i++) 
+			printf(*(p_str_title_formet + i), *(p_str + i));
+
+		printf("%10d %8d %15.3lf %7d\n", max, min , (float)mean/person_count, median);
+
+		// 3-2번
+		printf("거래처 %s의 price 데이터의 평균값은 %.3lf입니다.\n", findCity, (float)meanByCity/countByCity);
+
+		// 3-3번
+		printf("%d년에 이루어진 총 거래 건수는 %d입니다.\n", findYear, countByYear);
+	}
+	
+	// 파일포인터 닫기
+	fclose(fp);
+	system("pause");
+	return 0;
+}

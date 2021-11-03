@@ -1,0 +1,47 @@
+#include <stdio.h> // gets
+#include <stdlib.h> // malloc
+#include <string.h> // strlen
+
+// 2번
+int main() 
+{
+	char* data = (char *) malloc(sizeof(char) * 1000000);
+	int zeroCount = 0;
+	int oneCount = 0;
+	int actCount = 0;
+
+	gets(data);
+
+	if((data[0]-'0'))
+		oneCount++;
+	else
+		zeroCount++;
+
+	for (int i = 0; i < strlen(data); i++) 
+	{
+		int j = i + 1;
+
+		if (j == strlen(data))
+			break;
+
+		// 0001100
+		// 0123456
+		// i = 2, j = 3
+		if (data[i] != data[j]) 
+		{
+			if ((data[i] - '0') == 1)
+				zeroCount++;
+			else
+				oneCount++;
+		}
+	}
+
+	actCount = (oneCount > zeroCount) ? zeroCount : oneCount;
+
+	printf("%d\n", actCount);
+	
+	free(data);
+
+	system("pause");
+	return 0;
+}
