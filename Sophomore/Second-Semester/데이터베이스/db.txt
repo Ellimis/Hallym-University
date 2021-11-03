@@ -1,0 +1,20 @@
+DDL (Data Definition Language, 데이터 정의어) - CREATE 문
+DDL 컴파일러는 데이터 사전에 저장되는 테이블의 집합을 생성한다
+데이터 사전에는 메타 데이터(데이터에 대한 정보를 가진 데이터)가 저장된다.
+
+SQL문은 DDL문(CREATE)과 DML문을 가지고 있음
+SQL은 비절차식 언어
+
+
+
+SELECT ID, building
+FROM instructor, department
+WHERE instructor.dept_name = department.dept_name
+	and department.dept_name = 'Physics'
+
+Sequel language -> Structured Query Language(SQL)로 바뀜
+
+주키는 기본적으로 NOT NULL 인데, 그 주키의 값들로 각각의 릴레이션을 구분할 수 있어야하므로 NOT NULL defaullt 이다
+
+
+
