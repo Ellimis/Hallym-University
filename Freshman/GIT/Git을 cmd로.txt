@@ -1,0 +1,55 @@
+Microsoft Windows [Version 10.0.17134.829]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\plane>git --version
+git version 2.21.0.windows.1
+
+C:\Users\plane>git config --global user.name Yukari9463
+
+C:\Users\plane>git config --global user.email planetside2@naver.com
+
+C:\Users\plane>cd C:/
+
+C:\>mkdir git_test
+하위 디렉터리 또는 파일 git_test이(가) 이미 있습니다.
+
+C:\>cd git_test
+
+C:\git_test>git init
+Reinitialized existing Git repository in C:/git_test/.git/
+
+C:\git_test>git add *
+
+C:\git_test>git commit -m "first commit"
+[master 98ee472] first commit
+ 2 files changed, 2 deletions(-)
+ delete mode 100644 djsa.txt
+ create mode 100644 ttest.txt
+
+C:\git_test>git log
+commit 98ee472ed7293a27a4a470e98e0f21db30707e73 (HEAD -> master)
+Author: Yukari9463 <planetside2@naver.com>
+Date:   Tue Jul 9 14:43:44 2019 +0900
+
+    first commit
+
+commit 253a3b308c7a5584876ae29fe704a041af0e2021
+Author: Yukari9463 <planetside2@naver.com>
+Date:   Tue Jul 9 14:27:08 2019 +0900
+
+    first test
+
+C:\git_test>git remote add origin https://github.com/Yukari9463/HallymStudent.git
+
+C:\git_test>git push -u origin master
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (6/6), 423 bytes | 141.00 KiB/s, done.
+Total 6 (delta 0), reused 0 (delta 0)
+To https://github.com/Yukari9463/HallymStudent.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+C:\git_test>
