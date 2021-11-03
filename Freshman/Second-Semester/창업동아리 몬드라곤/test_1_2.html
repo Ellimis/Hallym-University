@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        document.write("분기별 판매량", "<br>");
+        var sale1 = 1200;
+        var sale2 = 1300;
+        var sale3 = 1000;
+
+        var str = "<table border = '1'>";
+        str += "<tr>";
+        str += "<td></td><td>판매량</td>"
+        str += "</tr>";
+        str += "<tr>";
+        str += "<td>1분기</td><td>1,200</td>"
+        str += "</tr>";
+        str += "<tr>";
+        str += "<td>2분기</td><td>1,300</td>"
+        str += "</tr>";
+        str += "<tr>";
+        str += "<td>3분기</td><td>1,000</td>"
+        str += "</tr>";
+        str += "</table>";
+        document.write(str);
+
+        var sale_m = prompt("4분기 판매량을 입력해주세요.", "0");
+        var cmp = (sale3 <= sale_m)? "평균 판매량 이상입니다." : "평균 판매량 미만입니다.";
+        document.write(cmp);
+
+    </script>
+</body>
+</html>

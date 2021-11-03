@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //var str = "C language is good program";
+        //var num = str.split(" ");
+        //for(i in num) document.write(num[i], "<br>");
+        var t = "Hello Thank You Good Luck To You";
+
+        document.write(t.charAt(16), "<br>");
+        document.write(t.indexOf("You"), "<br>");
+        document.write(t.indexOf("You", 16), "<br>");
+        document.write(t.lastIndexOf("You"), "<br>");
+        document.write(t.lastIndexOf("You", 25), "<br>");
+        document.write(t.match("Luck"), "<br>");
+        document.write(t.search("You"), "<br>");
+        document.write(t.substr(21, 4), "<br>");
+        document.write(t.substring(6, 12), "<br>");
+        document.write(t.replace("You", "Me"), "<br>");
+        document.write(t.toLowerCase(), "<br>");
+        document.write(t.toUpperCase(), "<br>");
+        document.write(t.length, "<br>");
+
+        var s = t.split(" ");
+        document.write("<h3>분할</h3>", "<br>");
+        for(i in s) document.write(s[i], "<br>");
+        document.write("<h6>분할 끝</h6>", "<br>");
+
+        var str = "A";
+        var ch = str.charCodeAt(0);
+        document.write(ch, "<br>");
+        document.write(String.fromCharCode(65), "<br>");
+    </script>
+</body>
+</html>

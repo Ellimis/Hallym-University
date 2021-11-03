@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var userName = prompt("이름을 입력해주세요.", " ");
+        var userTel = prompt("연락처를 입력해주세요.", " ");
+
+        document.write("입력한 이름 : " + userName.toLocaleUpperCase(), "<br>");
+
+        var visibleTel = userTel.sub(0, 7);
+        visibleTel.concat("****");
+        //var visibleTel = userTel.sub(0, 7) + "****";
+
+        document.write("입력한 번호 : " + userTel, "<br>");
+    </script>  
+</body>
+</html>
