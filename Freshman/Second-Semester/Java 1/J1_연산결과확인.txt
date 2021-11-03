@@ -1,0 +1,29 @@
+public class Test {
+    public static void main(String[] args){
+        int x = 0xf3a2, y = 0xb7c1, data = 23;
+        boolean b1 = true, b2 = false, b3 = true, b4 = false;
+        String result;
+
+        result = (data%2==0)? "짝수" : "홀수";
+
+        System.out.println("x 와 y 값 출력");
+        System.out.println("x = " + x);
+        System.out.println("y = " + y);
+
+        System.out.println("x 와 y 값 2진수 문자열 출력");
+        System.out.println("x = " + Integer.toBinaryString(x));
+        System.out.println("y = " + Integer.toBinaryString(y));
+
+        System.out.println("x 와 y 값 비트 연산 결과 출력");
+        System.out.println("1: x & y = " + Integer.toBinaryString(x & y));
+        System.out.println("2: x | y = " + Integer.toBinaryString(x | y));
+        System.out.println("3: ~x = " + Integer.toBinaryString(~x));
+
+        System.out.println("b1 과 b2 의 논리 연산 결과 출력");
+        System.out.println("4: b1 & b2 = " + (b1 & b2));
+        System.out.println("5: b1 && b2 = " + (b1 && b2));
+        System.out.println("b1 | b2 = " + (b1 | b2));
+        System.out.println("6: b1 || b2 = " + (b1 || b2));
+        System.out.println("7: b1 ^ b2 = " + (b1 ^ b2));
+    }
+}
