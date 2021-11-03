@@ -1,0 +1,47 @@
+//고급 배열 ArrayList 를 사용하기 위한 자바 도구
+import java.util.ArrayList;
+
+public class J2_test {
+	public static void main(String[] args) {
+		GameCharacter charac = new GameCharacter();
+		charac.add("Sword", 1, 100);
+		charac.add("Gun", 2, 50);
+		charac.print();
+	}
+}
+
+class GameCharacter {
+	private class GameItem {
+		String name;
+		int type;
+		int price;
+		
+		int getPrice() {
+			return price;
+		}
+		
+		@Override
+		public String toString() {
+			return "GameItem [name = " + name + ", type = " + type + ", price = " + price + "]";
+		}
+	}
+	//ArrayList<반환형> 배열이름 = new ArrayList<>(); 고급 배열
+	private ArrayList<GameItem> list = new ArrayList<>();
+	
+	public void add(String name, int type, int price) {
+		GameItem item = new GameItem();
+		item.name = name;
+		item.type = type;
+		item.price = price;
+		list.add(item);
+	}
+	
+	public void print() {
+		int total = 0;
+		for (GameItem item : list) {
+			System.out.println(item.toString());
+			total += item.getPrice();
+		}
+		System.out.println(total);
+	}
+}
