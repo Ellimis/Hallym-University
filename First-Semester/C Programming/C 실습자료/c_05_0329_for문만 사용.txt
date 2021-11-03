@@ -1,0 +1,155 @@
+#include <stdio.h>
+#include<stdlib.h> //대대/소대/일일=toupper() 대소/소소/일일=tolower() 0/1=isupper(); 0/1=islower(); 0/1=isalpha(); >>알파벳이 아닌지 0 1로 알려줌
+#include<math.h>
+//#define LINEITEM 10
+//#define MAX 100
+
+void ex_9() {
+	//	9.	2부터 입력 받은 수까지 정수 중에서 소수(prime number)를 출력하는 프로그램을 작성하시오.
+	//		소수는 약수가 1과 자신 뿐인 수
+	//		2에서부터 자기 자신까지 수로 나누어 떨어지지 않는 수
+	int n, i, j, cnt = 0;
+
+	printf("숫자 입력 :");
+	scanf_s("%d", &n);
+
+	for (j = 2; j <= n; j++)
+	{
+		for (i = 1; i <= j; i++)
+		{
+			if (j%i == 0) cnt++;
+		}
+		if (cnt == 2) printf("%d ", j);
+
+		cnt = 0;
+	}
+	printf("\n");
+	getchar();
+}
+
+void ex_12() {
+	/* 프로그램을 작성하십시오.
+	k이하의 알파벳입력(q는 종료, k이상은 다시 입력) : c
+	abc
+	k이하의 알파벳입력(q는 종료, k이상은 다시 입력) : k
+	k이하의 알파벳입력(q는 종료, k이상은 다시 입력) : h
+	abcdefgh
+	k이하의 알파벳입력(q는 종료, k이상은 다시 입력) : q
+	q입력으로 종료
+	*/
+	char ch, a;
+	ch = 'a';
+
+	for (;;) {
+		printf("\nk이하의 알파벳입력(q는 종료, k이상은 다시 입력) : ");
+		ch = getche();
+
+		if (ch >= 'k') {
+			if (ch == 'q') break;
+			continue;
+		}
+		else {
+			a = 'a';
+			while (a <= ch) {
+				a++;
+			}
+		}
+	}
+	printf("\nq입력으로 종료");
+	getchar();
+}
+
+void ex_13() {
+	char ch = 'a';
+	char cnt = 0;
+
+	for (;;) {
+		printf("\n문자입력(알파벳과 숫자 이외의 문자 입력 시 종료) : ");
+		ch = getche();
+
+		
+		if (islower(ch)) printf("\n소문자입니다. ");
+		else if (isupper(ch)) printf("\n대문자입니다. "); //isupper()islower()
+	
+		else {
+			if ('0' <= ch && ch <= '9') {
+				cnt += ch - '0';
+				printf("\n숫자입니다. 지금까지 입력한 숫자들의 합은 : %d", cnt);
+			}
+			else {
+				printf("\n알파벳과 숫자 이외의 문자를 입력하여 종료합니다.");
+				break;
+			}
+		}
+	}
+	getchar();
+}
+
+void ex_14() {
+	int i, j;
+
+	for (i = 0; i <= 7; i++)
+	{
+		for (j = -7; j <= 7; j++)
+		{
+			if (abs(j) <= i)
+				printf("%d", abs(j));
+			else
+				printf(" ");
+		}
+		printf("\n");
+	}
+	getchar();
+}
+
+void ex_15() {
+	int i, cnt, dis = 100;
+	char ch, temp;
+
+	printf("반복 횟수 입력 : \n");
+	scanf_s("%d", &cnt);
+
+	for (i = 1; i <= cnt; i++) {
+
+		printf("\n문자입력 : ");
+		scanf_s(" %c", &ch);
+
+		if (islower(ch))
+		{
+			if (abs('m' - ch) < dis)
+			{
+				temp = ch;
+				dis = abs('m' - ch);
+			}
+		}
+		else if (isupper(ch))
+		{
+			if (abs('M' - ch) < dis)
+			{
+				temp = ch;
+				dis = abs('M' - ch);
+			}
+		}
+		else
+		{
+			printf("=>알파벳이 아닙니다. 다시 입력합니다.");
+			cnt++;
+		}
+	}
+	if (islower(ch)) printf("m과 가장 가까운 문자는 %c", temp);
+	else if (isupper(ch)) printf("M과 가장 가까운 문자는 %c", temp);
+
+	getchar();
+}
+
+
+
+
+void main(void) {
+	ex_9();
+	ex_12();
+	ex_13();
+	ex_14();
+	ex_15();
+	getchar();
+}
