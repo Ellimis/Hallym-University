@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+//#define _CRT_SECURE_NO_WARNINGS
+
+typedef struct Node {
+    char word[20];
+    struct Node* prev;
+    struct Node* next;
+} Node;
+
+Node* head;
+Node* tail = NULL;
+
+void init() {
+    head = (Node*)malloc(sizeof(Node));
+    tail = (Node*)malloc(sizeof(Node));
+    if (head == NULL || tail == NULL) return;
+    head->next = tail;
+    head->prev = NULL;
+    strcpy_s(head->word, 20, word);
+    tail->prev = head;
+    tail->next = NULL;
+}
+
+void add(char* word) {
+    Node* node = (Node*)malloc(sizeof(Node));
+    if (node == NULL) return;
+
+    strcpy_s(node->word, 20, word);
+    //strcpy_s(node->word, word, 26);
+    if (head->next == tail) {
+        head->next = node;
+        node->prev = head;
+        node->next = tail;
+        tail->prev = node;
+        return;
+    }
+    else {
+        tail->prev->next = node;
+        node->prev = tail->prev;
+        node->next = tail;
+        tail->prev = node;
+        return;
+    }
+}
+
+/*
+void start(char* word) {
+    Node* tmp;
+    tmp = head->next;
+    while (strcmp(tmp->word, word) != 0 && tmp != tail)  tmp = tmp->next;
+    int len;
+    while (1) {
+        len = strlen(tmp->word);
+        if (len % 2 == 1) {
+            for (int i = 0; i < len; i++) {
+                if (tmp->next == tail) tmp = tmp->next->next;
+                tmp = tmp->next;
+            }
+            tmp->prev->next = tmp->next;
+            tmp->next->prev = tmp->prev;
+            printf("%s ", tmp->word);
+            free(tmp);
+            tmp = tmp->next;
+        }
+        else {
+            for (int i = 0; i < len; i++) {
+                if (tmp->prev == head) tmp = tmp->prev->prev;
+                tmp = tmp->prev;
+            }
+            tmp->prev->next = tmp->next;
+            tmp->next->prev = tmp->prev;
+            printf("%s ", tmp->word);
+            free(tmp);
+            tmp = tmp->next;
+        }
+        if (head->next == tail)  break;
+    }
+    return;
+}
+*/
+
+void addword() {
+    add("Radio");
+    add("Tuesday");
+    add("Rain");
+    add("Telephone");
+    add("Car");
+    add("Paper");
+    add("Blackboard");
+    add("Printer");
+    add("Lock");
+    add("Glass");
+    add("Memory");
+    add("Pen");
+    add("KO");
+    add("Flower");
+    add("Book");
+    add("Computer");
+    return;
+}
+
+int main() {
+    init();
+    /*
+    addword();
+    start("Radio");
+    */
+    printf("%d", sizeof(Node));
+    printf("%s", head->word);
+    return 0;
+}
