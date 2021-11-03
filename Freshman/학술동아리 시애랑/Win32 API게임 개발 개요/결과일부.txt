@@ -1,0 +1,482 @@
+#pragma comment(lib,"msimg32.lib")
+
+#define ADDED_VEL 10
+#define MAX_SPEED 10
+#define MIN_SPEED 1
+#define LEFT_MOUSE_BUTTON 0
+#define RIGHT_MOUSE_BUTTON 1
+#define MAX_ITEM_COUNT 10
+#define TEAM_BLUE 0
+#define TEAM_RED 1
+
+#include "size.h"
+#include "item.h"
+
+#include <stdio.h>
+#include <windows.h>
+#include <tchar.h>
+#include <time.h>
+#include <math.h>
+#include "resource.h"
+
+typedef struct {
+	INT itemCode;
+	INT x;
+	INT y;
+} ITEM;
+
+typedef struct {
+	INT x_pos;
+	INT y_pos;
+	INT ObjX_pos;
+	INT ObjY_pos;
+	DOUBLE x_vel = 0;
+	DOUBLE y_vel = 0;
+	INT Hp = 100;
+	INT Damage = 10;
+	DOUBLE Delay;
+	INT inventory = ITEM_NULL;
+	BOOL keyBuffer[256];
+	BOOL mouseBuffer[2];
+	BOOL team;
+} PLAYER;
+
+typedef struct {
+	PLAYER ai;
+	BOOL enemy_Capture;
+} AI;
+
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT OnCreate(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnSize(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnKeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnKeyUp(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnLButtonDown(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnLButtonUp(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnRButtonDown(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnRButtonUp(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnPaint(HWND hWnd, WPARAM wParam, LPARAM lParam);
+LRESULT OnDestroy(HWND hWnd, WPARAM wParam, LPARAM lParam);
+void DrawBitmap(HDC hdc, int x, int y, int x_size, int y_size, HBITMAP hBit);
+void CALLBACK TimerProc(HWND, UINT, UINT, DWORD);
+void getKey(PLAYER* pplayer);
+void move(PLAYER* pplayer);
+void getItem(PLAYER* pplayer);
+void CreateItem();
+void move_to_core(PLAYER* pplayer);
+
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pszLine, INT nShow)
+{
+	MSG msg;
+	HWND hWnd;
+	WNDCLASS wc;
+
+	wc.style = CS_OWNDC;
+	wc.lpfnWndProc = WndProc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = NULL;
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = TEXT("MyApp");
+
+	RegisterClass(&wc);
+
+	hWnd = CreateWindow(TEXT("MyApp"), TEXT("sample Application"),
+		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX, 0, 0, WIN_WIDTH, WIN_HEIGHT, NULL, NULL, hInstance, NULL);
+
+	ShowWindow(hWnd, SW_SHOW);
+
+	while (GetMessage(&msg, NULL, NULL, NULL)) {
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+	return 0;
+}
+
+INT x_pos = 0, y_pos = 0;
+DOUBLE x_vel = 0, y_vel = 0;
+RECT winRect;
+HBITMAP hMapBitmap;
+HBITMAP hBackBit;
+
+PLAYER player;
+AI ai[9];
+
+ITEM item[MAX_ITEM_COUNT];
+INT itemCount = 0;
+HBITMAP hItemBitmap[ITEM_COUNT];
+HBITMAP hCore_B, hCore_R, hCharacter_B, hCharacter_R;
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (iMsg) {
+	case WM_CREATE:
+		OnCreate(hWnd, wParam, lParam);
+		break;
+	case WM_SIZE:
+		OnSize(hWnd, wParam, lParam);
+		break;
+	case WM_KEYDOWN:
+		OnKeyDown(hWnd, wParam, lParam);
+		break;
+	case WM_KEYUP:
+		OnKeyUp(hWnd, wParam, lParam);
+		break;
+	case WM_LBUTTONDOWN:
+		OnLButtonDown(hWnd, wParam, lParam);
+		break;
+	case WM_LBUTTONUP:
+		OnLButtonUp(hWnd, wParam, lParam);
+		break;
+	case WM_RBUTTONDOWN:
+		OnRButtonDown(hWnd, wParam, lParam);
+		break;
+	case WM_RBUTTONUP:
+		OnRButtonUp(hWnd, wParam, lParam);
+		break;
+	case WM_PAINT:
+		OnPaint(hWnd, wParam, lParam);
+		break;
+	case WM_DESTROY:
+		OnDestroy(hWnd, wParam, lParam);
+		break;
+	}
+	return(DefWindowProc(hWnd, iMsg, wParam, lParam));
+}
+
+
+LRESULT OnCreate(HWND hWnd, WPARAM wParam, LPARAM lParam)
+{
+	player.x_pos = 100;
+	player.y_pos = 4800;
+	player.team = TEAM_BLUE;
+
+	for (int i = 0; i < 9; i++)
+	{
+		if (i < 4)
+		{
+			ai[i].ai.team = TEAM_BLUE;
+			ai[i].ai.x_pos = (rand() % SIZE_BASE);
+			ai[i].ai.y_pos = (rand() % SIZE_BASE) + SIZE_MAP - SIZE_BASE;
+			ai[i].ai.ObjX_pos = SIZE_MAP - SIZE_BASE;
+			ai[i].ai.ObjY_pos = SIZE_BASE;
+		}
+		else
+		{
+			ai[i].ai.team = TEAM_RED;
+			ai[i].ai.x_pos = (rand() % SIZE_BASE) + SIZE_MAP - SIZE_BASE;
+			ai[i].ai.y_pos = (rand() % SIZE_BASE);
+			ai[i].ai.ObjX_pos = SIZE_BASE;
+			ai[i].ai.ObjY_pos = SIZE_MAP - SIZE_BASE;
+		}
+	}
+
+	GetClientRect(hWnd, &winRect);
+	hMapBitmap = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_MAP));
+	hBackBit = NULL;
+	SetTimer(hWnd, 1, 1000 / 60, (TIMERPROC)TimerProc);
+	for (int i = 0; i < MAX_ITEM_COUNT; i++) { item[i].itemCode = ITEM_NULL; }
+	for (int i = 0; i < MAX_ITEM_COUNT; i++) { CreateItem(); }
+	for (int i = 0; i < ITEM_COUNT; i++)
+	{
+		switch (i)
+		{
+		case ITEM_EMP: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_DAMAGE: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_PORTAL: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_PORTAL)); break;
+		case ITEM_BLINK: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_INVISIBLE: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_OBSERVER: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_SHEILD: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_HEAL: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_HEAL)); break;
+		case ITEM_LASER: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_TOWER: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_ARMOR: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_SWITCH: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_ROCKET: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		case ITEM_HOOK: hItemBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_ITEM_ARMOR)); break;
+		}
+	}
+
+	hCore_B = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_CORE_B));
+	hCore_R = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_CORE_R));
+	hCharacter_B = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_CHARACTER_B));
+	hCharacter_R = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_CHARACTER_R));
+
+	return 0;
+}
+
+LRESULT OnSize(HWND hWnd, WPARAM wParam, LPARAM lParam)
+{
+	if (wParam != SIZE_MINIMIZED)
+	{
+		GetClientRect(hWnd, &winRect);
+		if (hBackBit != NULL)
+		{
+			DeleteObject(hBackBit);
+			hBackBit = NULL;
+		}
+	}
+	return 0;
+}
+
+LRESULT OnKeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam) { player.keyBuffer[wParam] = TRUE; return 0; }
+LRESULT OnKeyUp(HWND hWnd, WPARAM wParam, LPARAM lParam) { player.keyBuffer[wParam] = FALSE; return 0; }
+
+LRESULT OnLButtonDown(HWND hWnd, WPARAM wParam, LPARAM lParam) { player.mouseBuffer[LEFT_MOUSE_BUTTON] = TRUE; return 0; }
+LRESULT OnLButtonUp(HWND hWnd, WPARAM wParam, LPARAM lParam) { player.mouseBuffer[LEFT_MOUSE_BUTTON] = FALSE; return 0; }
+LRESULT OnRButtonDown(HWND hWnd, WPARAM wParam, LPARAM lParam) { player.mouseBuffer[RIGHT_MOUSE_BUTTON] = TRUE; return 0; }
+LRESULT OnRButtonUp(HWND hWnd, WPARAM wParam, LPARAM lParam) { player.mouseBuffer[RIGHT_MOUSE_BUTTON] = FALSE; return 0; }
+
+LRESULT OnPaint(HWND hWnd, WPARAM wParam, LPARAM lParam)
+{
+	HDC hDC;
+	PAINTSTRUCT ps;
+
+	HBRUSH myBrush, oldBrush;
+
+	HDC hMemDC;
+	HBITMAP hOldBitmap;
+
+	hDC = BeginPaint(hWnd, &ps);
+	hMemDC = CreateCompatibleDC(hDC);
+	if (hBackBit == NULL)
+	{
+		hBackBit = CreateCompatibleBitmap(hDC, winRect.right, winRect.bottom);
+	}
+	hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBackBit);
+	FillRect(hMemDC, &winRect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+
+	DrawBitmap(hMemDC, (winRect.right / 2) + (SIZE_MAP / 2) - player.x_pos, (winRect.bottom / 2) + (SIZE_MAP / 2) - player.y_pos, SIZE_MAP, SIZE_MAP, hMapBitmap);
+	TCHAR buf[128];
+
+	// Red 진영.
+	myBrush = CreateSolidBrush(RGB(255, 100, 100));
+	oldBrush = (HBRUSH)SelectObject(hMemDC, myBrush);
+	Rectangle(hMemDC,
+		(winRect.right / 2) - player.x_pos, (winRect.bottom / 2) + SIZE_MAP - SIZE_BASE - player.y_pos,
+		(winRect.right / 2) + SIZE_BASE - player.x_pos, (winRect.bottom / 2) + SIZE_MAP - player.y_pos);
+	SelectObject(hMemDC, oldBrush);
+	DeleteObject(myBrush);
+	DrawBitmap(hMemDC,
+		(winRect.right / 2) + (SIZE_BASE / 2) - player.x_pos, (winRect.bottom / 2) + SIZE_MAP - (SIZE_BASE / 2) - player.y_pos,
+		SIZE_CORE, SIZE_CORE, hCore_R);
+
+	// Blue 진영.
+	myBrush = CreateSolidBrush(RGB(100, 100, 255));
+	oldBrush = (HBRUSH)SelectObject(hMemDC, myBrush);
+	Rectangle(hMemDC,
+		(winRect.right / 2) + SIZE_MAP - SIZE_BASE - player.x_pos, (winRect.bottom / 2) - player.y_pos,
+		(winRect.right / 2) + SIZE_MAP - player.x_pos, (winRect.bottom / 2) + SIZE_BASE - player.y_pos);
+	SelectObject(hMemDC, oldBrush);
+	DeleteObject(myBrush);
+	DrawBitmap(hMemDC,
+		(winRect.right / 2) + SIZE_MAP - (SIZE_BASE / 2) - player.x_pos, (winRect.bottom / 2) + (SIZE_BASE / 2) - player.y_pos,
+		SIZE_CORE, SIZE_CORE, hCore_B);
+
+	for (int i = 0; i < itemCount; i++) {
+		if (item[i].itemCode != ITEM_NULL)
+		{
+			DrawBitmap(hMemDC,
+				((winRect.right / 2) - player.x_pos) + item[i].x, ((winRect.bottom / 2) - player.y_pos) + item[i].y,
+				SIZE_ITEM, SIZE_ITEM, hItemBitmap[item[i].itemCode]);
+			wsprintf(buf, "%2d", item[i].itemCode);
+			TextOut(hMemDC, (winRect.right / 2) - player.x_pos + item[i].x, (winRect.bottom / 2) - player.y_pos + item[i].y, buf, lstrlen(buf));
+		}
+	}
+
+	for (int i = 0; i < 9; i++)
+	{
+		if (ai[i].ai.team == TEAM_BLUE)
+			DrawBitmap(hMemDC,
+			(winRect.right / 2) + ai[i].ai.x_pos - player.x_pos,
+				(winRect.bottom / 2) + ai[i].ai.y_pos - player.y_pos,
+				SIZE_PLAYER, SIZE_PLAYER, hCharacter_B);
+		else
+			DrawBitmap(hMemDC,
+			(winRect.right / 2) + ai[i].ai.x_pos - player.x_pos,
+				(winRect.bottom / 2) + ai[i].ai.y_pos - player.y_pos,
+				SIZE_PLAYER, SIZE_PLAYER, hCharacter_R);
+	}
+
+	// Show Debug Log.
+	wsprintf(buf, "x_pos = %2d, y_pos = %2d, L Mouse = %d, R Mouse = %d, inventory = %d",
+		player.x_pos, player.y_pos, player.mouseBuffer[LEFT_MOUSE_BUTTON], player.mouseBuffer[RIGHT_MOUSE_BUTTON], player.inventory);
+	TextOut(hMemDC, 0, 0, buf, lstrlen(buf));
+
+	DrawBitmap(hMemDC, (winRect.right / 2), (winRect.bottom / 2), SIZE_PLAYER, SIZE_PLAYER, hCharacter_B);
+
+	BitBlt(hDC, 0, 0, winRect.right, winRect.bottom, hMemDC, 0, 0, SRCCOPY);
+
+	SelectObject(hMemDC, hOldBitmap);
+	DeleteDC(hMemDC);
+	EndPaint(hWnd, &ps);
+	return 0;
+}
+
+LRESULT OnDestroy(HWND hWnd, WPARAM wParam, LPARAM lParam)
+{
+	KillTimer(hWnd, 1);
+	DeleteObject(hMapBitmap);
+	DeleteObject(hCore_B);
+	DeleteObject(hCore_R);
+	DeleteObject(hCharacter_B);
+	DeleteObject(hCharacter_R);
+	for (int i = 0; i < ITEM_COUNT; i++)
+	{
+		DeleteObject(hItemBitmap[i]);
+	}
+	if (hBackBit != NULL)
+	{
+		DeleteObject(hBackBit);
+		hBackBit = NULL;
+	}
+	PostQuitMessage(0);
+	return 0;
+}
+
+// Draw Bitmap in DC.
+void DrawBitmap(HDC hdc, int x, int y, int x_size, int y_size, HBITMAP hBit)
+{
+	HDC MemDC;
+	HBITMAP OldBitmap;
+
+	MemDC = CreateCompatibleDC(hdc);
+	OldBitmap = (HBITMAP)SelectObject(MemDC, hBit);
+
+	TransparentBlt(hdc, x - (x_size / 2), y - (y_size / 2), x_size, y_size, MemDC, 0, 0, x_size, y_size, RGB(255, 0, 127));
+
+	SelectObject(MemDC, OldBitmap);
+	DeleteDC(MemDC);
+}
+
+// Main Loop.
+void CALLBACK TimerProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime)
+{
+	getKey(&player);
+	move(&player);
+	getItem(&player);
+	for (int i = 0; i < 9; i++)
+	{
+		move_to_core(&(ai[i].ai));
+		getKey(&(ai[i].ai));
+		move(&(ai[i].ai));
+		getItem(&(ai[i].ai));
+	}
+	InvalidateRect(hWnd, NULL, FALSE);
+}
+
+// Check Key and change velocity.
+void getKey(PLAYER* pplayer)
+{
+	if (pplayer->keyBuffer['W'])
+		pplayer->y_vel -= ADDED_VEL;
+	if (pplayer->keyBuffer['A'])
+		pplayer->x_vel -= ADDED_VEL;
+	if (pplayer->keyBuffer['S'])
+		pplayer->y_vel += ADDED_VEL;
+	if (pplayer->keyBuffer['D'])
+		pplayer->x_vel += ADDED_VEL;
+}
+
+// Moving Function.
+void move(PLAYER* pplayer)
+{
+	// Player position += velocity.
+	pplayer->x_pos += pplayer->x_vel;
+	pplayer->y_pos += pplayer->y_vel;
+
+	// When player position is out of map.
+	if (pplayer->x_pos < 0 || pplayer->x_pos > SIZE_MAP)
+		pplayer->x_pos -= pplayer->x_vel;
+	if (pplayer->y_pos < 0 || pplayer->y_pos > SIZE_MAP)
+		pplayer->y_pos -= pplayer->y_vel;
+
+	// When player speed is faster then Max Speed.
+	if (pplayer->x_vel > MAX_SPEED)
+		pplayer->x_vel = MAX_SPEED;
+	else if (pplayer->x_vel < -MAX_SPEED)
+		pplayer->x_vel = -MAX_SPEED;
+	if (pplayer->y_vel > MAX_SPEED)
+		pplayer->y_vel = MAX_SPEED;
+	else if (pplayer->y_vel < -MAX_SPEED)
+		pplayer->y_vel = -MAX_SPEED;
+
+	if (pplayer->x_vel < MIN_SPEED && pplayer->x_vel > -MIN_SPEED)
+		pplayer->x_vel = 0;
+	if (pplayer->y_vel < MIN_SPEED && pplayer->y_vel > -MIN_SPEED)
+		pplayer->y_vel = 0;
+
+	pplayer->x_vel *= 0.9;
+	pplayer->y_vel *= 0.9;
+}
+
+void getItem(PLAYER* pplayer)
+{
+	for (int i = 0; i < MAX_ITEM_COUNT; i++)
+	{
+		if (item[i].itemCode != ITEM_NULL && pow((double)pplayer->x_pos - item[i].x, 2) + pow((double)pplayer->y_pos - item[i].y, 2) < pow(SIZE_PLAYER / 2, 2))
+		{
+			pplayer->inventory = item[i].itemCode;
+			item[i].itemCode = ITEM_NULL;
+			itemCount--;
+			break;
+		}
+	}
+}
+
+void CreateItem()
+{
+	for (int i = 0; i < MAX_ITEM_COUNT; i++)
+	{
+		if (item[i].itemCode == ITEM_NULL)
+		{
+			item[i].itemCode = rand() % ITEM_COUNT;
+			item[i].x = rand() % SIZE_MAP;
+			item[i].y = rand() % SIZE_MAP;
+			itemCount++;
+			break;
+		}
+	}
+}
+
+void move_to_core(PLAYER* pplayer) {
+	int x_dis = pplayer->x_pos - pplayer->ObjX_pos;
+	int y_dis = pplayer->y_pos - pplayer->ObjY_pos;
+
+	if (x_dis < -SIZE_PLAYER)
+	{
+		pplayer->keyBuffer['A'] = FALSE;
+		pplayer->keyBuffer['D'] = TRUE;
+	}
+	else if (x_dis > SIZE_PLAYER)
+	{
+		pplayer->keyBuffer['A'] = TRUE;
+		pplayer->keyBuffer['D'] = FALSE;
+	}
+	else
+	{
+		pplayer->keyBuffer['A'] = FALSE;
+		pplayer->keyBuffer['D'] = FALSE;
+	}
+
+	if (y_dis > SIZE_PLAYER)
+	{
+		pplayer->keyBuffer['W'] = TRUE;
+		pplayer->keyBuffer['S'] = FALSE;
+	}
+	else if (y_dis < -SIZE_PLAYER)
+	{
+		pplayer->keyBuffer['W'] = FALSE;
+		pplayer->keyBuffer['S'] = TRUE;
+	}
+	else
+	{
+		pplayer->keyBuffer['W'] = FALSE;
+		pplayer->keyBuffer['S'] = FALSE;
+	}
+
+}
