@@ -1,0 +1,136 @@
+test.c -> compile, link -> test.exe 30 50
+
+void main(int argc, char *argv[]) {
+	//argv[0] = test.exe\0
+	//argv[1] = 30\0
+	//argv[2] = 50\0
+	int i;
+	
+	for(i = 0; i < argc; i++) { //argc = 3, 들어온 데이터 값 세개
+		printf("%s", argv[i]);
+	}
+	//문자열을 정수로 변환 : 리턴값(정수) = atoi("문자열");
+	//			 리턴값(실수) = atof(""); 
+	//둘다 stdlib.h 에 있음
+
+	printf("%d, (atoi(argv[1]) + atoi(argv[2]))); //80 
+} //두개의 데이터 30, 50 을 더한 값 출력
+
+test.c -> compile, link -> test.exe in.txt 또는 test.exe inout.txt
+
+//텍스트 파일 이름을 바꾸고 싶을 때 rename
+
+void main(int argc, char *argv[]) {
+	if(argc != 2) //잘못되었습니다....
+	
+	fopen_s(&fp, argv[1], "r"); //주소의 fp, 
+}
+파일 입출력 ppt 36p, 37p 중요
+
+예제
+#include <stdio.h>
+#include <stdlib.h>
+
+void main(void)
+{
+  FILE *fp;
+  int i[] = {3, 5, 7};
+
+   /* 출력을 위해 파일을 연다. */
+  if((fp=fopen("myfile.bin", "wb")) == NULL) { 
+      printf("Cannot open file");
+      exit(1);
+  }
+(1)for(int a =0; a < sizeof(i) / sizeof(i[0]); a++){
+	fwrite(&i[a], sizeof(int), 1, fp);
+   } //정수로 분해해서 정수를 하나씩 출력
+(2)fwrite(i, sizeof(int), sizeof(i) / sizeof(i[0]), fp); //배열을 통째로 출력하나 int만큼 세번
+(3)fwrite(i, sizeof(i), 1, fp); //배열 통째 출력, 1번에 출력
+
+  /* 입력을 위해 파일을 연다. */
+if((fp=fopen("myfile.bin", "rb")) == NULL) { 
+      printf("Cannot open file");
+      exit(1);
+  }
+
+(1)for(int a =0; a < sizeof(i) / sizeof(i[0]); a++){
+	fread(&i[a], sizeof(int), 1, fp);
+   } //정수로 분해해서 정수를 하나씩 출력
+(2)fread(i, sizeof(int), sizeof(i) / sizeof(i[0]), fp); //배열을 통째로 출력하나 int만큼 세번
+(3)fread(i, sizeof(i), 1, fp); //배열 통째 출력, 1번에 출력
+
+--------------------------------------------------------------------------------------
+  fclose(fp);
+  }
+
+  /* 입력을 위해 파일을 연다. */
+  if((fp=fopen("myfile", "r")) == NULL) {
+    printf("Cannot open file");
+    exit(1);
+  }
+	
+  if(fread(&i, sizeof i, 1, fp) !=1) 
+    printf("Read error occurred");
+    exit(1);
+  }
+  printf("i is %d", i);
+  fclose(fp);
+}
+
+-------------------------------------------------------------------------------------
+/* 10개의 원소를 갖는 배열을 실수로 채운다 */
+double d[10] = {10.23, 19.87, 1002.23, 12.9, 0.897, 11.45, 75.34, 0.0, 1.01, 875.875};
+
+ /* 배열의 각 원소를 화일에 쓴다 */
+for(i=0; i<10; i++) {
+    if(fwrite(&d[i], sizeof(double), 1, fp) !=1) {
+	printf("write error");
+	exit(1);
+	}
+}
+
+fwrite(d, sizeof(d), 1, fp) //read 일 땐 write 만 read로 바꾸면됨
+-------------------------------------------------------------------------------------
+void main(int argc, char *argv[]){
+	FILE *fp;
+	fopen_s("&fp, argv[1], "rb");
+	
+	fseek(fp, 0, 2); //마지막으로 보내서 ftell로 읽고 출력.
+	loc = ftell(fp); //현재
+	
+	printf("size = %d", loc); //파일 사이즈 출력
+	fclose(fp);
+}
+
+void main(int argc, char *argv[]){
+	FILE *fp;
+	int last_value;
+
+	fopen_s("&fp, argv[1], "rb"); //int in[] = {2, 3, 4}; 4를 읽는 법은
+	
+	fseek(fp, 0, 2); //마지막으로 보내서 ftell로 읽고 출력, 끝
+	fseek(fp, -sizeof(int), 2); //끝에서 int 크기만큼 앞으로 
+	fread(&last_value, sizeof(int), 1, fp); //4출력
+	fclose(fp);
+}
+
+void main(int argc, char *argv[]) {
+
+	double d[10] = {10.23, 19.87, 1002.23, 12.9, 0.897, 11.45, 75.34, 0.0, 1.01, 875.875};
+
+	FILE *fp;
+	double lastvalue;
+
+	fopen_s(&fp, argv[1], "wb");
+	fwrite(d, sizeof(d), 1, fp);
+	fclose(fp);
+
+	fopen_s(&fp, argv[1], "rb");
+	
+	fseek(fp, 0, 2);
+	fseek(fp, -(sizeof(double)*3), 2);
+
+	fread(&lastvalue, sizeof(double), 1, fp);
+
+	fclose(fp);
+}

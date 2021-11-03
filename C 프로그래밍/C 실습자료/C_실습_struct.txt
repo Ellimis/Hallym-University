@@ -1,0 +1,170 @@
+#include <stdio.h>
+
+1번 ---------------------------------------------
+struct book {
+	int price;
+	char name[20];
+};
+
+void ex_01() {
+	/*
+	1.	제목과 가격을 내용으로 하는 book 구조체 타입을 선언 하고 book 구조체 변수에
+		적당한 값을 입력 받아 구조체에 저장하고 출력하는 프로그램을 작성하시오.
+    */
+	struct book ent;
+
+	printf("\n책 제목 입력 : ");
+	gets(ent.name);
+
+	printf("\n책 가격 입력 : ");
+	scanf_s("%d", &ent.price);
+	getchar();
+
+	printf("책 제목은 %s, 책의 가격은 %d", ent.name, ent.price);
+}
+
+2번 ---------------------------------------------
+struct book {
+		char name[20];
+	};
+typedef struct book book;
+
+void ex_02() {
+	/*
+	2.	3권의 책을 저장하는 book 구조체 배열을 선언하시오. 적당한 값을 입력 받아
+		구조체 배열에 저장하고 출력하는 프로그램을 작성하시오.
+    */
+	book n[3];
+	int i;
+
+	printf("책 이름 세 개 입력 : \n");
+	for (i = 0; i < sizeof(n) / sizeof(n[0]); i++) {
+		gets(n[i].name);
+	}
+
+	for (i = 0; i < sizeof(n) / sizeof(n[0]); i++) {
+		printf("\n책 : %s", n[i].name);
+	}
+}
+
+5번 ---------------------------------------------
+struct data {
+	int year;
+	int month;
+	int day;
+};
+typedef struct data datatype;
+
+struct person {
+	datatype ymd;
+	char name[10];
+	char p_num[20];
+};
+typedef struct person person;
+
+void ex_05() {
+	/*
+	5.	년, 월, 일 정보로 구성된 구조체 date를 정의 하시오. 구조체 date를 
+		다시 자료형 datetype으로 재정의 하시오. 자료형 datetype을 사용하여 
+		이름, 주민번호, 생년월일을 저장할 구조체 person을 정의하시오.
+		person 구조체를 세 사람의 정보로 초기화 한 후 내용을 출력하시오.
+    */
+	person info[3];
+	int i, j;
+
+	printf("세 사람의 정보를 입력해주세요.\n");
+	for (i = 0; i < 3; i++) {
+		printf("\n이름 입력 : ");
+		gets(info[i].name);
+
+		printf("\n주민등록번호 입력 : ");
+		gets(info[i].p_num);
+
+		printf("\n생년월일 입력 : ");
+		scanf_s("%4d%*c%2d%*c%2d", &info[i].ymd.year, &info[i].ymd.month, &info[i].ymd.day);
+		getchar();
+	}
+
+	printf("\n입력된 세 사람은");
+	for (i = 0; i < 3; i++) {
+		j = 0;
+
+		printf("\n이름 : %s", info[i].name);
+
+		printf("\n주민등록번호 : ");
+		while (info[i].p_num[j]) {
+			printf("%c", info[i].p_num[j]);
+			j++;
+			if (j == 6) printf("-");
+		}
+
+		printf("\n생년월일 : %4d.%2d.%2d", info[i].ymd.year, info[i].ymd.month, info[i].ymd.day);
+	}
+}
+
+6번 ---------------------------------------------
+typedef struct {
+	int price;
+	char name[10];
+} book;
+
+void input_arr(book *p, int size) {
+	for (int i = 0; i < size; i++) {
+		printf("\n책 이름 입력 : ");
+		gets(p->name);
+		
+		printf("책 가격 입력 : ");
+		scanf_s("%d", &(p->price));
+		getchar();
+		p++;
+	}
+}
+
+void print_datas(book *p, int size) {
+	for (int i = 0; i < size; i++) {
+		printf("\n책 이름 : %s", p->name);
+		printf("\t책 가격 : %6d", p->price);
+		p++;
+	}
+}
+
+int total_amount(book *q, int size) {
+	int i, sum = 0;
+
+	for (i = 0; i < size; i++) {
+		sum += q->price;
+		q++;
+	}
+	return sum;
+}
+
+void ex_06() {
+	/*
+	6.
+	①제목과 가격을 내용으로 하는 book 구조체 타입을 구성하고 3권의 책을 저장하는
+	  book 구조체 변수 mybook 배열을 선언하시오.
+
+	②input_arr() 함수를 호출하여 적당한 값을 입력 받아 구조체 배열에 저장하는 프로그램을 작성하시오.
+
+	③구조체 배열에 저장된 내용을 print_datas() 함수를 호출하여 출력하시오. 
+
+	④구조체 배열에 저장된 모든 책의 가격을 더한 값을 리턴하는 total_amount() 함수를
+	  작성하여 수행하고 결과를 보이시오.
+    */
+	book mybook[3];
+	int rst;
+
+	input_arr(mybook, sizeof(mybook) / sizeof(mybook[0]));
+	print_datas(mybook, sizeof(mybook) / sizeof(mybook[0]));
+	rst = total_amount(mybook, sizeof(mybook) / sizeof(mybook[0]));
+	printf("\n책의 총 합은 : %d", rst);
+}
+
+메인 함수 ---------------------------------------
+void main(void) {
+	ex_01();
+	ex_02();
+	ex_05();
+	ex_06();
+	getchar();
+}

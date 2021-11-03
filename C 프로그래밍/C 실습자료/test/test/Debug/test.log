@@ -1,0 +1,8 @@
+﻿  test03.c
+c:\users\plane\onedrive\바탕 화면\c 실습\test\test\test03.c(212): warning C4022: '_beginthreadex': 실제 매개 변수 4의 포인터가 일치하지 않습니다.
+c:\users\plane\onedrive\바탕 화면\c 실습\test\test\test03.c(241): warning C4047: '=': 'char'의 간접 참조 수준이 'char [3]'과(와) 다릅니다.
+c:\users\plane\onedrive\바탕 화면\c 실습\test\test\test03.c(270): warning C4047: '=': 'char'의 간접 참조 수준이 'char [3]'과(와) 다릅니다.
+c:\users\plane\onedrive\바탕 화면\c 실습\test\test\test03.c(299): warning C4047: '=': 'char'의 간접 참조 수준이 'char [3]'과(와) 다릅니다.
+c:\users\plane\onedrive\바탕 화면\c 실습\test\test\test03.c(329): warning C4047: '=': 'char'의 간접 참조 수준이 'char [3]'과(와) 다릅니다.
+c:\users\plane\onedrive\바탕 화면\c 실습\test\test\test03.c(523): warning C4101: 'name' :참조되지 않은 지역 변수입니다.
+  test.vcxproj -> C:\Users\plane\OneDrive\바탕 화면\C 실습\test\Debug\test.exe

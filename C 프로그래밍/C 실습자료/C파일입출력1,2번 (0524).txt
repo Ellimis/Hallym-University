@@ -1,0 +1,48 @@
+#include <stdio.h> //puts gets scanf printf 등등
+#include <math.h> //abs(절댓값) 등
+#include <string.h> //
+#include <stdlib.h> //isupper, toupper 등
+
+void ex_01() {
+	/*
+	1.  키보드로 부터 문자를 입력 받아 입력 받은 문자를 input.txt 파일로 출력하는 작업을
+		반복하는 프로그램을 작성하시오. 단, 'q'를 입력 받으면 문자입력을 멈추시오. 
+		(fputc(ch, fp);  또는 fprintf(fp, "%c", ch); 사용)
+
+	*/
+	char ch;
+	FILE *fp;
+
+	fopen_s(&fp, "input.txt", "w");
+
+	do {
+		printf("문자 입력 : ");
+		ch = getche();
+
+		if (ch == 'q') break;
+		fprintf(fp, "%c", ch);
+	} while (1);
+}
+
+void ex_02() {
+	/*
+	2.  input.txt 파일에서 내용을 읽어 화면에 출력하는 프로그램을 작성하시오. 
+		( ch=fgetc(fp) 또는 fscanf(fp, "%c", &ch); 사용)
+
+	*/
+	char ch;
+	FILE *fp;
+
+	fopen_s(&fp, "input.txt", "r");
+
+	while (!feof(fp)) {
+		fscanf_s(fp, "%c", &ch);
+		printf("%c", ch);
+	}
+	fclose(fp);
+}
+
+void main(void) {
+	ex_01();
+	getchar();
+}
