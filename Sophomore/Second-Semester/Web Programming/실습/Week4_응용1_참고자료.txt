@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #imgDiv {
+      width: 160px;
+      height: 210px;
+      position: absolute;
+      border: 2px solid lightseagreen;
+    }
+
+    #imgDiv2 {
+      width: 160px;
+      height: 210px;
+      position: relative;
+      border: 2px solid lightseagreen;
+      left: 200px;
+    }
+
+    #imgDiv img {
+      width: 150px;
+      height: 200px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -75px;
+      margin-top: -100px;
+    }
+
+    #imgDiv2 img {
+      width: 150px;
+      height: 200px;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      margin-left: -75px;
+      margin-top: -100px;
+    }
+
+    #imgDiv > #funny {
+      opacity: 0;
+      transition: opacity 1s
+    }
+
+    #imgDiv:hover > #funny {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="imgDiv">
+    <img id="serious" src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg">
+    <img id="funny" src="http://image.hnol.net/c/2011-02/11/13/201102111316417591-167450.jpg">
+  </div>
+  <div id="imgDiv2">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"
+    onmouseover="this.src='http://image.hnol.net/c/2011-02/11/13/201102111316417591-167450.jpg'"
+    onmouseout="this.src='https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg'"
+    border="0">
+  </div>
+</body>
+</html>
+
+----------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>배경 꾸미기</title>
+  <style>
+  div:hover {
+    width: 200px;
+    height: 300px;
+    background-image: url("Source/card_front1.png");
+    background-size: 200px 300px;
+    background-repeat: no-repeat;
+  }
+  .imgswap img:last-child {
+    display:none
+  }
+  .imgswap:hover img:first-child {
+    display:none
+  }
+  .imgswap:hover img:last-child {
+    display:inline-block
+    
+  }
+</style>
+</head>
+<body>
+  <div class="imgswap">
+    <img src="Source/card_back1.jpg" width="200" height="300">
+    <img src="Source/card_front1.png" width="200" height="300">
+  </div>
+</body>
+</html>
