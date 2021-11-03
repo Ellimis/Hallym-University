@@ -1,0 +1,73 @@
+markup langauges
+
+헤더
+#
+##
+###
+####
+#####
+######
+
+들여쓰기
+>
+>>
+>>>
+
+순서가 있는 목록 : 숫자와 점 사용
+1.
+2.
+3.
+
+순서가 없는 목록 : *, +, - 사용
+* 빨강
+  * 녹색
+    * 파랑
+
+수평선
+* * *
+***
+*****
+- - -
+-----------------------------------
+
+링크 표현
+[link 이름][id]      ex) [Google][googlelink] [K-DH]
+[id]: URL      ex) [googlelink]:https://google.com "Go Google"
+
+인라인 링크
+[Title](link)      ex) [Google](https://google.com)
+
+자동 링크
+<https://google.com>
+
+기울이기 : 양쪽 * 또는 _ 하나씩      ex) *test* _test_
+
+강조1 : 양쪽 * 또는 _ 두개씩      ex) **test** __test__
+강조2 : <span style="color:red">강조2</span>
+
+언더라인 : 양쪽 + 두개씩      ex) ++underline++
+취소선 : 양쪽 ~ 두개씩      ex) ~~cancelline~~
+
+표 만들기
+|제목|내용|설명|
+|-----|---|---|
+|Text1|Text2|Text3|
+|Text1|Text2|Text3|
+
+정렬된 표
+|제목|내용|설명|
+|:---|---:|:---:|
+|왼쪽정렬|오른쪽정렬|중앙정렬|
+|왼쪽정렬|오른쪽정렬|중앙정렬|
+
+빈 셀을 포함한 표 - 셀 사이를 비워두면 자동 확장
+|제목|내용|설명|
+|:---|---:|:---:|
+||중앙에서 확장||
+|||오른쪽에서 확장|
+|왼쪽에서 확장||
+
+이미지 삽입
+![이미지가 안나타날 때 Text](이미지 저장 경로 "타이틀")
+![이미지가 안나타날 때 Text](/path/to/img.jpg "Optional title)
+<img src=사진이름.png height= , width= > 등
