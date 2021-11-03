@@ -1,0 +1,32 @@
+public class TT {
+	public static void main(String[] args) {
+//		½Ã¾Ö¶û °úÁ¦ 1
+		
+		for(int i = 2; i <= 9; i++) 
+		{
+			
+			for(int j = 1; j <= 9; j++) 
+			{
+				System.out.println(i + "°öÇÏ±â" + j + " Àº " + i*j);
+			}
+		}
+		
+//		½Ã¾Ö¶û °úÁ¦ 2
+		
+		for(int j = 1; j <= 5; j++) {
+			for(int h = 1; h <= j; h++) {
+				System.out.print("*");
+			}
+			System.out.println(" ");
+		}
+		
+//		½Ã¾Ö¶û °úÁ¦ 3
+		
+		for(int m = 5; m >= 1; m--) {
+			for(int n = 1; n <= m; n++) {
+				System.out.print("*");
+			}
+			System.out.println(" ");
+		}
+	}
+}

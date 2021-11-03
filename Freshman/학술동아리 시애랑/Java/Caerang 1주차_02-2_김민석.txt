@@ -1,0 +1,17 @@
+import java.util.Scanner;
+
+public class TT {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		//2. 문자열을 입력 받아 그 문자열 그대로 출력하시오. (띄어쓰기 포함)				
+		String num;
+				
+		System.out.print("문자열 입력 : ");
+		num = scan.nextLine();
+				
+		System.out.print("입력하신 문자열은 : " + num + "입니다.");
+
+		scan.close();			
+	}
+}

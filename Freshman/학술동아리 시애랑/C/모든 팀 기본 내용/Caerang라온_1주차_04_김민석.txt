@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+char my_toupper(char ch) {
+	if ('a' <= ch && ch <= 'z') return ch - 32;
+	else if ('A' <= ch && ch <= 'Z') return ch;
+}
+
+void ex_04() {
+	/*
+	Q4) ctype.h 에 있는 toupper 의 기능을 하는 함수 my_toupper 를 작성하시오. ASCII 코드표 참고.
+    */
+	char ch, upch;
+
+	printf("(소문자든 대문자든 전부 대문자가?!)\n영어 입력 : ");
+	ch = getche();
+
+	upch = my_toupper(ch);
+	printf("\n입력된 영어는 %c, 대문자는 %c", ch, upch);
+}
+
+void main(void) {
+	ex_04();
+	getchar();
+}

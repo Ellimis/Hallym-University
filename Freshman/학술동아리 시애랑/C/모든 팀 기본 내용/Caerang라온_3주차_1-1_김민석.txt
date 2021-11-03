@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+void mystrcpy(char *p, char *q) {
+	
+	while (*q) {
+		*p = *q;
+		p++;
+		q++;
+	}
+	*p = '\0';
+}
+
+void ex_01() {
+	/*
+	strcpy(str1, str2) //나만의 문자열 복사 함수
+	*/
+	char str1[20], str2[20];
+
+	printf("\n복사할 문자열 입력 : ");
+	gets(str2);
+
+	mystrcpy(str1, str2);
+	printf("입력한 문자열 %s 를 복사한 결과는 [%s]", str2, str1);
+}
+
+void main(void) {
+	ex_01();
+	getchar();
+}

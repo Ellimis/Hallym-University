@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+public class TT {
+	public static void main(String[] args) {
+		
+		//문자 한 개를 입력받아 ch에 저장한 후, 이 문자가 알파벳인지 아닌지 출력하시오. (대문자, 소문자 모두 가능)
+		
+		Scanner scan = new Scanner(System.in);
+		
+		char ch;
+		
+		System.out.println("문자 한 개를 입력해주세요.");
+		ch = scan.next().charAt(0);
+		
+		System.out.println(('a' <= ch && ch <= 'z')? "소문자 알파벳입니다.":('A' <= ch && ch <= 'Z')? "대문자 알파벳입니다." : "알파벳이 아닙니다.");		
+					
+	}
+}

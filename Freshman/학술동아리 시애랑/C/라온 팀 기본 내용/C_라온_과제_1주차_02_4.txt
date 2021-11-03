@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+void ex_04() {
+	/*
+	문제 4.
+	문자열을 입력 받아 그 문자열의 길이를 출력하는 작업을 반복하시오. 
+	단, <Enter키>만을 입력 받으면 반복을 종료하시오. 
+	단, strlen()을 사용하지 않는다. 아래 참고.
+		문자열입력 : cgvs
+		입력된 문자열 길이=4
+		문자열입력 : cgv
+		입력된 문자열 길이=3
+		문자열입력 : cg
+		입력된 문자열 길이=2
+		문자열입력 : <Enter키>
+	*/
+	char str[20];
+	int i = 0;
+
+	while(1) {
+		i = 0;
+		printf("\n문자열 입력 : ");
+		gets(str);
+
+		if (str[0] == '\0') break;
+
+		while (str[i]) {
+			i++;
+		}
+		printf("입력된 문자열 길이 = %d", i);
+	}
+}
+
+void main(void)
+{
+	ex_04();
+	getchar();
+}

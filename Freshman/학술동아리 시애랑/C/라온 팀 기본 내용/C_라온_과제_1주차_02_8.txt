@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+void ex_08() {
+	/*
+	문제 8
+		문자열 2개를 입력 받아 같은지 다른지 비교하는 프로그램 작성하시오.
+		단, strcmp()함수를 사용하지 않는다. 아래 참고.
+		
+		문자열입력 : apple
+		문자열입력 : apples
+		apple, apples 다름.
+		
+		문자열입력 : apple
+		문자열입력 : apple
+		apple, apple 같음.
+		
+		문자열입력 : <Enter키>
+	*/
+	char ch[20], str[20];
+	int i = 0, cmp;
+
+	while (1) {
+		i = 0;
+		cmp = 0;
+		printf("첫 번째 문자열 입력 : ");
+		gets(ch);
+		if (ch[0] == '\0') break;
+
+		printf("두 번째 문자열 입력 : ");
+		gets(str);
+
+		while (ch[i]) {
+			if (ch[i] == str[i]) cmp = 1;
+			else cmp = 0;
+			i++;
+		}
+
+		if (ch[i] != str[i]) cmp = 0;
+		if (cmp == 1) printf("%s, %s 같음.\n", ch, str);
+		else printf("%s, %s 다름.\n", ch, str);
+	}
+}
+
+void main(void)
+{
+	ex_08();
+	getchar();
+}

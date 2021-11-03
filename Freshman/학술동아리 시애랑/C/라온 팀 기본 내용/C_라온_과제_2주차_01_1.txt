@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_PEOPLE 100
+
+typedef struct {
+	int major;
+	int cult;
+	double avg;
+
+} stdScore;
+
+typedef struct {
+	char department[20];
+	char student_num[10];
+	char name[20];
+	stdScore person_num;
+
+} stdInfo;
+
+void main() {
+	/*
+	1. 학생들의 성적을 계산하기 위한 구조체(전공학점, 교양학점, 평균학점) stdScore를 선언한다.
+		학생정보(학과, 학번, 이름, 학점(stdScore) 를 담는 구조체 stdInfo를 선언한다.
+		최대 100명 중(매크로로 선언하시오) n명의 학생 정보를 입력하고 평균학점을
+		내림차순으로 정렬하여 n명의 모든 학생 정보를 출력하시오.
+		단, 구조체 포인터를 사용하여라.
+		(문제의 구현은 여러분 하기 나름입니다. 어떻게든 좋습니다.)
+		또한 등수 검색 함수를 만들어서 구조체를 전달한 후, 이름을 입력받아 해당 이름의 등수를 출력하시오.
+	*/
+	stdInfo p[MAX_PEOPLE];
+	int end = 'a', i = 0, j, temp, index, n;
+	char cmp[20];
+
+	printf("최대 %d명 중 원하는 학생 수 만큼 정보를 입력해주세요.\n", MAX_PEOPLE);
+	printf("몇명을 입력하시겠습니까? \n");
+	scanf_s("%d", &n);
+	getchar();
+
+	while (i < n) {
+		printf("입력을 종료하려면 z 를 입력해주세요.\n");
+		end = getche();
+
+		if (end == 'z') break;
+
+		printf("\n학과, 학번, 이름, 전공, 교양 점수 입력 : ");
+		scanf_s("%s %s %s %d %d", (p + i)->department, 20, (p + i)->student_num, 10, (p + i)->name, 20, &(p + i)->person_num.major, &(p + i)->person_num.cult);
+		(p + i)->person_num.avg = ((p + i)->person_num.major + (p + i)->person_num.cult) / 2;
+		i++;
+	}
+
+	for (i = 0; i < n - 1; i++)
+	{
+		index = i;
+		for (j = i + 1; j < n; j++)
+		{
+			if ((p + index)->person_num.avg < (p + j)->person_num.avg)
+				index = j;
+		}
+		temp = (p + i)->person_num.avg;
+		(p + i)->person_num.avg = (p + index)->person_num.avg;
+		(p + index)->person_num.avg = temp;
+	}
+
+	printf("\n-------입력한 사용자 정보--------\n");
+	for (i = 0; i < n; i++) {
+		printf("\n학과 : %-10s, 학번 : %-8s, 이름 : %-6s, 전공 : %3d, 교양 : %3d, 평균 : %3.1lf", (p + i)->department, (p + i)->student_num, (p + i)->name, (p + i)->person_num.major, (p + i)->person_num.cult, (p + i)->person_num.avg);
+	}
+
+	getchar();
+	printf("\n궁금한 이름 입력 : ");
+	gets(cmp);
+
+	for (i = 0; i < n; i++) {
+		if (!(strcmp((p + i)->name, cmp))) {
+			printf("\n입력하신 이름 %s님의 등수는 %d등입니다.", cmp, (i + 1));
+		}
+	}
+	getchar();
+}

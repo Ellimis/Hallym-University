@@ -1,0 +1,15 @@
+import java.util.Scanner; 
+public class TT {
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		char ch;
+		
+		System.out.println("알파벳을 입력해주세요.");
+		ch = scan.next().charAt(0);
+		
+		if('a' <= ch && ch <= 'z') System.out.println("소문자입니다.");
+		else if('A' <= ch && ch <= 'Z') System.out.println("대문자입니다.");
+		else System.out.println("알파벳이 아닙니다.");
+	}
+}

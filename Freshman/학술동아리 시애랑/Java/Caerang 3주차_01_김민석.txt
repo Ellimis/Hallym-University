@@ -1,0 +1,56 @@
+import java.util.Scanner;
+
+public class TT {
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		int cnt, i, a;
+		
+		while(true) {
+			System.out.println("1.for 2.while 3.do while 4.end");
+			int num = scan.nextInt();
+			
+			if(num == 4) break;
+			
+			switch (num) {
+				case 1:
+					System.out.println("반복횟수 입력");
+					cnt = scan.nextInt();
+					
+					for(i = 0; i < cnt; i++) {
+						System.out.print(i + " ");
+					}
+					System.out.println();
+					break;
+					
+				case 2:
+					System.out.println("반복횟수 5");
+					a = 5;
+					
+					while(a < 5) {
+						System.out.println("아무것도 안뜨지롱!");
+					}
+					System.out.println("while 반복문을 종료합니다.");
+					break;
+					
+				case 3:
+					System.out.println("반복횟수 5");
+					a = 5;
+					
+					do {
+						System.out.println(a);
+						
+					} while(a < 5);
+					System.out.println("do while 반복문을 종료합니다.");
+					break;
+					
+				case 4:
+					break;
+					
+				default:
+					System.out.println("1~4 이외에 숫자이므로 다시 입력해주세요.");
+					continue;
+			}
+		}
+	}
+}

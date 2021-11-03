@@ -1,0 +1,17 @@
+import java.util.Scanner;
+
+public class TT {
+	public static void main(String[] args) {
+		
+		//정수 하나를 입력받아 number에 저장하고 number가 3의 배수면 “3의 배수입니다.” 출력, 3의 배수가 아니라면 “3의 배수가 아닙니다＂를 출력하시오.
+		
+		Scanner scan = new Scanner(System.in);
+		
+		int number;
+				
+		System.out.println("정수를 하나 입력해주세요.");
+		number = scan.nextInt();
+				
+		System.out.println((number%3==0) ? "3의 배수입니다." : "3의 배수가 아닙니다.");			
+	}
+}

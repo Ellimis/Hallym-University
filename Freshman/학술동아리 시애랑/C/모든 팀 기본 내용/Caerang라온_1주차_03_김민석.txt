@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void ex_03() {
+	/*
+	Q3) 프로그램 실행시 1~100 사이의 난수를 변수 num 에 저장하고, 그 값을 사용자가 추적하여
+	맞추는 프로그램을 작성하시오. ( 기회는 7번으로 상수처리 )
+	*/
+	int num, n = 100, user_n;
+
+	srand((long)time(NULL));
+	num = rand() % n + 1;
+
+	for (int i = 0; i < 7; i++) {
+		printf("1 ~ 100 사이의 난수를 맞춰보세요! :D\n");
+		scanf_s("%d", &user_n);
+		getchar();
+		
+		if (num == user_n) {
+			printf("\nwow 맞추셨습니다. 난수는 %d 였어요!", num);
+			break;
+		}
+		else if (num > user_n) printf("난수는 %d 보다 크답니다.", user_n);
+		else printf("난수는 %d 보다 작아요.", user_n);
+	}
+	printf("\n프로그램 종료.");
+}
+
+void main(void) {
+	ex_03();
+	getchar();
+}

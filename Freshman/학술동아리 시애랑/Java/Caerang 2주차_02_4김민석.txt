@@ -1,0 +1,27 @@
+import java.util.Scanner; 
+public class TT {
+	public static void main(String[] args) {
+
+//		시애랑 과제 4
+
+		Scanner scan = new Scanner(System.in);
+		char a, ch = 'a';
+
+		for (;;) {
+			System.out.print("\nk이하의 알파벳입력(q는 종료, k이상은 다시 입력) : ");
+			ch = scan.next().charAt(0);
+
+			if (ch >= 'k') {
+				if (ch == 'q') break;
+				continue;
+			}
+			else {
+				a = 'a';
+				while (a <= ch) {
+					a++;
+				}
+			}
+		}
+		System.out.println("\nq입력으로 종료");
+	}
+}

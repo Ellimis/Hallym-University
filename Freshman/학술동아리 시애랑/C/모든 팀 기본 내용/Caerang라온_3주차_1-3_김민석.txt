@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void mystrcat(char *p, char *q) {
+	while (*p) {
+		p++;
+	}
+
+	while (*q) {
+		*p = *q;
+		p++;
+		q++;
+	}
+	*p = '\0';
+}
+
+void ex_03() {
+	/*
+	strcat(str1, str2) //문자열 붙이기
+	*/
+	char str1[50], str2[50];
+
+	printf("\n처음으로 올 문자열을 입력 : ");
+	gets(str1);
+
+	printf("\n다음으로 올 문자열 입력 : ");
+	gets(str2);
+
+	mystrcat(str1, str2);
+	printf("두 문자열을 이은 문장은 : %s", str1);
+}
+
+void main(void) {
+	ex_03();
+	getchar();
+}

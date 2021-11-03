@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int mystrlen(char *p) {
+	int cnt = 0;
+
+	while (*p) {
+		cnt++;
+		p++;
+	}
+
+	return cnt;
+}
+
+void ex_04() {
+	/*
+	strlen(str1) //”\0”을 제외한 문자열의 크기 반환
+	*/
+	char str1[20];
+	int num;
+
+	printf("\n길이를 알고싶은 문자열 입력 : ");
+	gets(str1);
+
+	num = mystrlen(str1);
+	printf("입력한 문자열 %s의 길이는 %d", str1, num);
+}
+
+void main(void) {
+	ex_04();
+	getchar();
+}

@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+void ex_1() {
+	/*
+	2번 과제 
+	달력의 월이 몇일인지 알려주는 프로그램을 작성하세요.
+	switch 문을 사용하여 작성해야 합니다.
+	2월은 28일로 계산합니다. (윤년은 계산하지 않아요.)
+	for 문을 사용하여 반복적으로 입력 받아야 합니다.
+	1~12 외의 값이 입력되는 경우 종료되게 break 문도 사용해야 합니다
+	*/
+	int month;
+	
+	printf("몇일인지 알고싶은 달을 쓰세요 : ");
+	scanf_s("%d", &month);
+	getchar();
+
+	switch (month) {
+	case 1:
+	case 3:
+	case 5:
+	case 7:
+	case 8:
+	case 10:
+	case 12:
+		printf("\n입력하신 %d월은 31일 입니다.", month);
+		break;
+	case 2:
+		printf("\n입력하신 %d월은 28일 입니다.", month);
+		break;
+	case 4:
+	case 6:
+	case 9:
+	case 11:
+		printf("\n입력하신 %d월은 30일 입니다.", month);
+		break;
+	default:
+		printf("\n달력은 1~ 12월밖에 없습니다 ^^.");
+		break;
+	}
+}
+
+void main(void) {
+	ex_1();
+	getchar();
+}

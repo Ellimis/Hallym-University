@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+public class TT {
+	public static void main(String[] args) {
+		
+		//1. 두 정수를 입력받아 정수형 변수 a와 b에 대입시키고. 두 수의 합, 차, 곱, 나누기, 나머지 연산을 구하시오
+		Scanner scan = new Scanner(System.in);
+
+		int a, b;
+		
+		System.out.println("\n정수 입력 : ");
+		a = scan.nextInt();
+		
+		scan.nextLine();
+		
+		System.out.println("\n정수 입력 : ");
+		b = scan.nextInt();
+		
+		System.out.println("\n입력받은 두 수의 합은 : " + (a + b) + " 이다.");
+		System.out.println("\n입력받은 두 수의 차는 : " + (a - b) + " 이다.");
+		System.out.println("\n입력받은 두 수의 곱은 : " + (a * b) + " 이다.");
+		System.out.println("\n입력받은 두 수의 나누기는 : " + (a / (double)b) + " 이다.");
+		System.out.println("\n입력받은 두 수의 나머지 계산은 : " + (a % b) + " 이다.");
+				
+	}
+}

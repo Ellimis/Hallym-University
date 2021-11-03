@@ -1,0 +1,109 @@
+package test;
+
+//import java.util.Scanner;  이걸 넣어야 scanner 사용 가능
+import java.util.Scanner;
+
+public class TT {
+	public static void main(String[] args) {
+//		Scanner scan = new Scanner(System.in);  입력받을 수 있게 해주는 명령어
+//		변수 = scan.nextInt();
+		/*int[] number;
+		number= new int[10];
+		int[] number = new int[10];
+		*/
+		Scanner scan = new Scanner(System.in);
+		
+		int personNumber = scan.nextInt();
+		scan.nextLine();
+		
+		String[] name = new String[personNumber];
+		int[] score = new int[personNumber];
+		
+		System.out.println("이름 입력");
+		
+		for(int i = 0; i < name.length; i++) {
+			name[i] = scan.next();	
+		}
+		System.out.println("점수 입력");
+		
+		for(int i = 0; i < score.length; i++) {
+			score[i] = scan.nextInt();
+		}
+		
+		scan.nextLine();
+		
+		char[] grade = {'a', 'b', 'c', 'd', 'e', 'f'};
+		//System.out.println(grade[0]+" "+grade[1]+" "+grade[2]+" "+grade[3]+" "+grade[4]+" ");
+		for(int i = 0; i < grade.length; i++) {
+			System.out.print(grade[i] + " ");
+		}
+		System.out.println(" ");
+		
+		for(int i = 0; i < personNumber; i++) {
+			System.out.println(name[i] + ", " + score[i]);
+		}
+		
+		//2차원 배열 int[][] s = new int[3][5] : 3은 행의개수, 5는 열의 개수
+		/*2차원 배열 for 문 2개를 이용한 초기화
+		for(int i = 0; i < arr.length; i++) {
+			for(int j = 0; j < arr.length; j++) {
+				System.out.println(arr[i][j] + " ");
+			}
+			System.out.println(" ");
+		}*/
+		/*
+		int number[] = new int[10];
+		
+		for(int i = 0; i < number.length; i++) {
+			number[i] = i;
+		}
+		
+		for(int i = 0; i < number.length; i++) {
+			System.out.println(number[i]);
+		}
+		
+		for(int value : number) {
+			System.out.print(value);
+		}
+		
+		name[0] = "조명근";
+		name[1] = "유일송";
+		System.out.println(name[0] + ", " + name[1]);
+		
+		score[0] = 92;
+		score[1] = 71;
+		System.out.println(score[0] + ", " + score[1]);
+		*/
+	}
+}
+
+=================================================================================================
+import java.util.Scanner;
+
+public class TT {
+	public static void main(String[] args) {
+		
+//		00000
+//		01110
+//		01210
+//		01110
+//		00000
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("input : ");
+		int input = scan.nextInt();
+		
+		for(int i = 0; i < input; i++) {
+			for(int j = 0; j < input; j++) {
+				int min = i;
+				
+				if(min > j) min = j;
+				if(min > input - i - 1) min = input - i - 1;
+				if(min > input - j - 1) min = input - j - 1;
+				System.out.print(min + " ");
+			}
+			System.out.println();
+		}
+		
+	}
+}

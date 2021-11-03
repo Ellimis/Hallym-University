@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+void ex_01() {
+	/*
+	문제1
+		10진수 정수를 입력 받아서 16진수로 출력하는 프로그램을 작성해 보자.
+		이는 서식문자의 활용에 대한 문제이므로 쉽게 해결할 수 있을 것이다
+	*/
+	int in, hx;
+	printf("\n10진수 정수를 입력 : ");
+	scanf_s("%d", &in);
+
+	printf("10진수 %d -> %#x", in, in);
+	getchar();
+}
+
+void main(void)
+{
+	ex_01();
+	getchar();
+}

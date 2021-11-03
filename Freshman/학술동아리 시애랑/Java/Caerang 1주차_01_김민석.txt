@@ -1,0 +1,48 @@
+Caerang 1주차 _ 01 _ 과제
+이름 : 김민석
+학번 : 20195124
+
+class Ideone
+{
+	public static void main (String[] args)
+	{
+		//1번. 고양이 그림 출력하기
+		
+		System.out.println("\\    /\\");
+		System.out.println("\n )  ( ')");
+		System.out.println("\n(  /  )");
+		System.out.println("\n \\(__)|");
+		
+		//2번. 강아지 그림 출력하기
+		
+		System.out.println("\n|\\_/|");
+		System.out.println("\n|q p|   /");
+		System.out.println("\n( 0 )\"\"\"\\");
+		System.out.println("\n|\"^\"'    |");
+		System.out.println("\n||_/=\\\\__|");
+		
+		//3번. 코드화 시켜보기
+		//"30,000원을 가지고 있는 사람이 600원짜리 사과 4개와 760원짜리 배 5개를 구입하여 얼마를 지출하였고 남은 잔액은 얼마이다."
+		
+		
+		int fund, apple, pear, app_num, pear_num, sum;
+		
+		fund = 30000;
+		
+		apple = 600;
+		pear = 760;
+		
+		app_num = 4;
+		pear_num = 5;
+		
+		sum = (apple * app_num) + (pear * pear_num);
+		fund -= sum;
+		
+		
+		System.out.println("\n30,000원을 가지고 있는 사람은 사과 4개와 배 5개를 구입하였다.\n");
+		System.out.println("\n이때 지출액은 : " + sum);
+		System.out.println("\n남은 금액은 : " + fund);
+		System.out.println("\n이다.");
+		
+	}
+}

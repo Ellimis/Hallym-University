@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+void ex_03() {
+	/*
+	문제 3
+		문자열 1개를 입력 받아 그 문자열의 길이를 출력하시오. (배열사용). 단, strlen()을 사용하지 않는다. 아래 참고.
+		문자열입력 : cgvs
+		입력된 문자열 길이=4
+	*/
+	char str[20];
+	int i = 0;
+
+	printf("문자열 입력 : ");
+	gets(str);
+
+	while (str[i]) {
+		i++;
+	}
+	printf("입력된 문자열 %s의 길이 = %d", str, i);
+}
+
+void main(void)
+{
+	ex_03();
+	getchar();
+}

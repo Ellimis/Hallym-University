@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void ex_03() {
+	/*
+	문제3
+		두 개의 정수를 입력 받아서 최대 공약수(GCD)를 구하는 프로그램을 작성해보자.
+		실행의 예
+		두 개의 정수 입력: 6 9
+		두 수의 최대 공약수: 3
+
+		tip. 정수 num1과 num2의 최대 공약수는 num1이나 num2보다 클 수 없다.
+		그리고 num1과 num2의 최대 공약수로 num1 또는 num2를 나누면 나머지가 0이 된다.
+		이 두 가지 특성을 이용하면 최대 공약수를 쉽게 구할 수 있다.
+	*/
+	int i, n1, n2, max, gcd = 0;
+
+	printf("\n두 개의 정수 입력 : ");
+	scanf_s("%d %d", &n1, &n2);
+	max = (n1 >= n2) ? n2 : n1;
+
+	for (i = 2; i <= max; i++) { //1은 모든 수에 해당이니 제외
+		if (n1 % i == 0 && n2 % i == 0) {
+			gcd = i;
+		}
+	}
+
+	printf("\n두 수의 최대 공약수 : %d", gcd);
+	getchar();
+}
+
+void main(void)
+{
+	ex_03();
+	getchar();
+}

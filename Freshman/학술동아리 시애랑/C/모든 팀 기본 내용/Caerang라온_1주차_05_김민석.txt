@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int myfactorial(int n) {
+	if (n <= 1) return 1;
+	else return (n * myfactorial(n - 1));
+}
+
+void ex_05() {
+	/*
+	Q5) 팩토리얼을 재귀함수로 작성하시오. ( 사용자로부터 임의의 정수를 입력받음 )
+    */
+	int n, result;
+
+	printf("아무 숫자나 입력해주세요! :D \n");
+	scanf_s("%d", &n);
+	getchar();
+
+	result = myfactorial(n);
+	printf("\nn! = %d", result);
+}
+
+void main(void) {
+	ex_05();
+	getchar();
+}
