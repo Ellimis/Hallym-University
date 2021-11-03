@@ -1,0 +1,41 @@
+﻿중괄호와 소괄호만으로 이루어진 입력 스트링에서 괄호의 짝을 맞추기 위한 프로그램을 작성합니다.
+입력은 다음과 같은 astr 처럼 문자열로 주어집니다. 아래와 같은 결과를 얻는 프로그램을 작성하셨다면,
+위 9번 문제의 a)와 b)의 예상 결과가 옳은지 프로그램을 통해 확인해 봅니다.
+(배달의 민족 입사 시험에 나왔던 문제로, 그 시험에서는 시간복잡도가 최저인 경우 고득점을 받았습니다.)
+
+>>>
+astr= {2 * { 3 + ( 4 - 5 ) * 6 + { 7 + ( 8- 9 ) // 10 } * 2 } + 3 }
+astr is OK
+>>>
+
+>>> 
+astr= {2 * { 3 + ( 4 - 5 ) * 6 + { 7 + ( 8- 9 ) // 10 } * 2 } +3 
+astr is NOK
+>>>
+
+[소스]
+
+# 괄호의 정보를 가지는 parentheses 리스트 
+parentheses = ['(', ')', '{', '}'] # , '[', ']'
+# 괄호마다의 갯수를 저장하게 될 cnt dictionary, 모든 괄호는 0개로 초기화
+cnt = dict.fromkeys(parentheses, 0)
+
+# 문자열을 입력받으면 그 문자열에서 괄호들을 따로 빼낸다
+astr = input('astr = ')
+str_list = [n for n in astr if n in cnt.keys()]
+
+# str_list에서 뺀 괄호가 cnt 딕셔너리 키 값에 있다면 그 키의 값(value)를 1증가 
+for i in str_list:
+    if i in cnt.keys():
+        cnt[i] += 1
+
+# 각 괄호끼리의 갯수가 같다면 True, 다르면 False 를 넣는다
+cnd = []
+for i in range(0, len(parentheses), 2):
+    cnd.append(True if cnt.get(parentheses[i]) == cnt.get(parentheses[i+1]) else False)
+
+# cnd 가 모두 True 라면 OK, 하나라도 False(괄호가 안맞으)면 NOK 출
+if all(cnd):
+    print("astr is OK")
+else :
+    print("astr is NOK")

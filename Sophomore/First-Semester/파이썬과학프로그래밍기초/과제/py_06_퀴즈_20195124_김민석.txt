@@ -1,0 +1,45 @@
+2020.04/22 - 20195124 김민석 6주차 퀴즈
+
+
+# 교수님 제가 고점이란 개념을 잘 몰라서 교수님이 요구하신 값을 찾을 수가 없어서
+# 제가 아는 고점인 주식에서의 고점을 이용해서 주위보다 높은 값을 기록하게 코딩했습니다
+# 문제와 다르다고 마구 깍지 말아주시길 바랍니다 ㅜ 
+
+# 입력되는 숫자와 고점을 기록하기 위한 빈 리스트 생성 
+data = []
+peak_index = []
+
+# 0 입력 받기 전까지 무한 반복 
+while(True):
+    num = input('숫자를 입력해주세요(0 입력시 종료) : ')
+    if num == 0:
+        break
+    if num == '': # 빈칸이면 종료 
+        print('--- 빈칸 입력 ---')
+        break
+    if num.isdigit(): # 숫자일 경우 data 리스트에 추가 
+        data.append(int(num))
+    else:
+        print('--- 숫자가 아님 ---')
+        break
+
+print('data =', data)
+
+for i in range(len(data)): #data 리스트 길이만큼 작동 
+    left = i-1  # i 가 data 인덱스 끝 값(0, len(data)-1)에 갔을 때를 위한 left, right
+    right = i+1
+    
+    if left < 0: # i 가 0 일 때 left 는 끝 값(len(data)-1)로 변경 
+        left = (len(data)-1)
+        
+    if right > (len(data)-1): # 위와 마찬가지로 i 가 끝값일 때 right = 0 으로 변경
+        right = 0
+        
+    # 위에서 i 에 따라 바로 왼쪽 오른쪽 인덱스 번호를 가지는 left 와 right 를 비교해서
+    # data[i] 가 가장 크면 peak_index 에 고점 기록 
+    if data[left] <= data[i] and data[i] >= data[right]:
+        peak_index.append(data[i])
+
+print(peak_index)   # 입력된 숫자들 중 주위보다 높은 값(고점)모음 출력 
+peak_index.sort()   # 리스트 정렬 
+print(peak_index)   # 이와 마찬가지로 저점(주위보다 낮은 값)도 출력 가능

@@ -1,0 +1,179 @@
+2주차_강의_1 : py_sci_prog_02_dstruct_oper_rcd_2_1 : https://youtu.be/rMqh0Oprh9g
+
+2주차_강의_2 : py_sci_prog_02_dstruct_oper_rcd_2_2 : https://youtu.be/yvOCSyXC1bY
+
+2주차_강의_3 : py_sci_prog_02_dstruct_oper_rcd_2_3 : https://youtu.be/P-b_HctM-vo   
+
+2주차_실습_1 : py_sci_prog_02_dstruct_oper_rcd_3_print : https://youtu.be/w7fdVU8SwjI
+
+2주차_실습_2 : py_sci_prog_02_dstruct_oper_rcd_4_variable : https://youtu.be/vwpVoeqmEho
+
+2주차_실습_3 : py_sci_prog_02_dstruct_oper_rcd_5_input : https://youtu.be/LA78rtS-4N0
+ 
+3주차_강의_1 : py_sci_prog_03_flow_control_rcd1 : https://youtu.be/7jO6QXxIGOw
+
+3주차_강의_2 : py_sci_prog_03_flow_control_rcd2 : https://youtu.be/_a57eOMQIXY
+
+3주차_강의_3 : py_sci_prog_03_flow_control_rcd3 : https://youtu.be/M_gy7ANUiHc
+
+3주차_실습_1 : py_sci_prog_02_dstruct_oper_ex_rcd_1 (10:25) : https://youtu.be/xP-xzkL6SFA
+
+3주차_실습_2 : py_sci_prog_02_dstruct_oper_ex_rcd_2 (11:13) : https://youtu.be/add_Oxd6l_c
+
+3주차_실습_3 : py_sci_prog_02_dstruct_oper_ex_rcd_3 (06:39) : https://youtu.be/IP-K7TwzfRI
+
+4주차_강의_1 : py_sci_prog_04_list_rcd1 (12:18) : https://youtu.be/yTyf_3bmH6o
+
+4주차_강의_2 : py_sci_prog_04_list_rcd2 (11:07) : https://youtu.be/LjeuQblOJcY
+
+4주차_강의_3 : py_sci_prog_04_list_rcd3 (10:20) : https://youtu.be/Ab5LOfoPJuA
+
+4주차_강의_4 : py_sci_prog_04_list_rcd4 (10:29) : https://youtu.be/PoQES91mHKA
+
+4주차_강의_5 : py_sci_prog_04_list_rcd5 (10:35) : https://youtu.be/DOXI_y41ayg
+
+4주차_실습_1 : py_sci_prog_03_flow_control_rcd4_ex (11:43) : https://youtu.be/4IgYK1niaXg
+
+4주차_실습_2 : py_sci_prog_03_flow_control_rcd5_ex (03:25) : https://youtu.be/lZxBJPcbRFE
+
+4주차_실습_3 : py_sci_prog_03_flow_control_rcd6_ex (13:26) : https://youtu.be/FcfjOBMn8pQ
+
+4주차_실습_4 : py_sci_prog_03_flow_control_rcd7_ex (11:14) : https://youtu.be/CLakkYAaw4g
+
+4주차_실습_5 : py_sci_prog_03_flow_control_rcd8_ex (07:42) : https://youtu.be/Fp8wrnsxvso
+
+5주차_강의_1 : py_sci_prog_04_list_rcd_6_ex (11:15) : https://youtu.be/nJWKDUsIc8A
+
+5주차_강의_2 : py_sci_prog_04_list_rcd_7_ex (12:39) : https://youtu.be/vT436TXogR8
+
+5주차_강의_3 : py_sci_prog_04_list_rcd_8_ex (10:58) : https://youtu.be/TW7a9nPpzAc
+
+5주차_강의_4 : py_sci_prog_04_list_rcd_9_ex (10:16) : https://youtu.be/sYWi_tZQi2M
+
+5주차_강의_5 : py_sci_prog_04_list_rcd_10_ex (16:18) : https://youtu.be/75q4IVjpE7Y
+
+5주차_강의_6 : py_sci_prog_04_list_rcd_11_ex (06:56) : https://youtu.be/W8P07Tl4MGQ
+
+06주차_강의_1 : all_06_quiz_rcd (04:47) : https://youtu.be/2zF9o4wFUwM
+
+06주차_강의_2 : py_sci_prog_05_dic_rcd_1 (27:28) : https://youtu.be/q9UPvNtRfYo
+
+06주차_강의_3 : py_sci_prog_05_dic_rcd_2 (20:48) : https://youtu.be/LL1tTDmBkQ4
+
+06주차_실습_1 : py_sci_prog_06_set_rcd_1 (21:30) : https://youtu.be/DUYo_-0rAEM
+
+06주차_실습_2 : py_sci_prog_06_set_rcd_2 (14:38) : https://youtu.be/fmAZsvrIdec
+
+06주차_실습_3 : py_sci_prog_06_set_rcd_3 (18:10) : https://youtu.be/RclffKpO0As
+
+07주차_강의_1 : py_sci_prog_04_list_rcd_12_quiz_06 (21:30) : https://youtu.be/HkWFVDVioRE
+
+07주차_강의_2 : py_sci_prog_07_func_rcd_1 (16:25) : https://youtu.be/Ouk7DexKFs8
+
+07주차_강의_3 : py_sci_prog_07_func_rcd_2 (21:28) : https://youtu.be/0B6qhCOiBWw
+
+07주차_실습_1 : py_sci_prog_07_func_rcd_3_ex (25:36) : https://youtu.be/1FDoelqh2s0
+
+07주차_실습_2 : py_sci_prog_07_func_rcd_4_ex (26:35) : https://youtu.be/RSDCxgZxM0A
+
+08주차_강의_1 : py_07주차_퀴즈_해설 (18:03) : https://youtu.be/bVUUBvC90uQ
+
+08주차_강의_2 : py_sci_prog_08_string_rcd_1 (15:52) : https://youtu.be/ARfpaCFLhhs
+
+08주차_강의_3 : py_sci_prog_08_string_rcd_2 (21:34) : https://youtu.be/OUIlHvtCTfo
+
+08주차_실습_1 : py_sci_prog_08_string_rcd_3 (11:08) : https://youtu.be/sZvMiB4p9-A
+
+08주차_실습_2 : py_sci_prog_08_string_rcd_4_ex (10:38) : https://youtu.be/hN5x-JfZQf0
+
+08주차_실습_3 : py_sci_prog_08_string_rcd_5_ex (10:58) : https://youtu.be/pzR5yPKnpio
+
+08주차_실습_4 : py_sci_prog_08_string_rcd_6_ex (14:49) : https://youtu.be/4NRpYh1zKQs
+
+09주차_강의_1 : py_08주차_퀴즈_해설_1 (11:33) : https://youtu.be/Xoit1vwb8qI
+
+09주차_강의_2 : py_08주차_퀴즈_해설_2 (12:36) : https://youtu.be/SJ1oW3fbQjc
+
+09주차_강의_3 : py_sci_prog_09_numpy_01 (16:36) : https://youtu.be/BAXp-o81530
+
+09주차_강의_4 : py_sci_prog_09_numpy_02 (14:39) : https://youtu.be/ThmkVhuSyDA
+
+09주차_실습_1 : py_sci_prog_09_numpy_03 (14:28) : https://youtu.be/Wlgb1SsCe4M
+
+09주차_실습_2 : py_sci_prog_09_numpy_04 (15:18) : https://youtu.be/KQ3mdAl0Yz0
+
+09주차_실습_3 : py_sci_prog_09_numpy_05 (14:55) : https://youtu.be/2NEQYv6Gags
+
+09주차_실습_4 : py_sci_prog_09_numpy_06 (11:57) : https://youtu.be/KnTbxb6_rBI
+
+10주차_강의_1 : py_sci_prog_09_numpy_07 (13:10) : https://youtu.be/lx-GmQWzpw8
+
+10주차_강의_2 : py_sci_prog_09_numpy_08 (07:01) : https://youtu.be/Wdhf4DeAU0I
+
+10주차_강의_3 : py_sci_prog_09_numpy_09 (11:57) : https://youtu.be/5OAYDQ_ON6Y
+
+10주차_강의_4 : py_sci_prog_09_numpy_10 (17:17) : https://youtu.be/DLagCY1skPs
+
+10주차_강의_5 : py_sci_prog_09_numpy_11 (04:07) : https://youtu.be/tTEOv7-eccQ
+
+10주차_실습_1 : py_09주차_퀴즈_해설 (08:54) : https://youtu.be/364BS-ezn1w
+
+10주차_실습_2 : py_sci_prog_09_numpy_12_ex (16:02) : https://youtu.be/SMoAgmaQMQo
+
+10주차_실습_3 : py_sci_prog_09_numpy_13_ex (09:07) : https://youtu.be/wHN7jsEH9o8
+
+10주차_실습_4 : py_sci_prog_09_numpy_14_ex (14:23) : https://youtu.be/wXtb-9Lzxy8
+
+10주차_실습_5 : py_sci_prog_09_numpy_15_ex (12:46) : https://youtu.be/MoUxR8hsxhE
+
+11주차_강의_1 : py_10주차_퀴즈_해설 (17:39) : https://youtu.be/q2tfUjWlZmc
+
+11주차_강의_2 : py_sci_prog_10_matplotlib_1 (11:30) : https://youtu.be/RH-DpgaRXbo
+
+11주차_강의_3 : py_sci_prog_10_matplotlib_2 (12:15) : https://youtu.be/TAPjCzqxdhs
+
+11주차_강의_4 : py_sci_prog_10_matplotlib_3 (09:36) : https://youtu.be/Z6Ws3X0tfDI
+
+11주차_실습_1 : py_sci_prog_10_matplotlib_4_ex (17:57) : https://youtu.be/a8ev-dcRPIU
+
+11주차_실습_2 : py_sci_prog_11_pandas_1 (19:29) : https://youtu.be/LqqMW9d12X8
+
+11주차_실습_3 : py_sci_prog_11_pandas_2 (15:40) : https://youtu.be/6rfvBoigUOw
+
+12주차_강의_1 : py_11주차_과제_해설 (13:46) : https://youtu.be/DVG3y3NUcUo
+
+12주차_강의_2 : py_sci_prog_11_pandas_rcd_3 (23:40) : https://youtu.be/vFW0cwm2IRY
+
+12주차_강의_3 : py_sci_prog_11_pandas_rcd_4 (19:23) : https://youtu.be/s_TbLLCWNMs
+
+12주차_실습_1 : py_sci_prog_11_pandas_rcd_5 (13:44) : https://youtu.be/bQGERqUGVPs
+
+12주차_실습_2 : py_sci_prog_11_pandas_rcd_6 (22:13) : https://youtu.be/dcO8f7wE7v4
+
+12주차_실습_3 : py_sci_prog_11_pandas_rcd_7_ex (16:57) : https://youtu.be/qnhT6SoX0-A
+
+13주차_강의_1 : py_sci_prog_12_fileinout_rcd_01 (13:11) : https://youtu.be/kpllZH7nTUA
+
+13주차_강의_2 : py_sci_prog_12_fileinout_rcd_02 (17:58 ) : https://youtu.be/u5fNF7XYgus
+
+13주차_강의_3 : py_sci_prog_12_fileinout_rcd_03 (18:00) : https://youtu.be/JeLJBUCTYBA
+
+13주차_강의_4 : py_sci_prog_12_fileinout_rcd_04 (11:28) : https://youtu.be/pBJDN78vxiQ
+
+13주차_실습_1 : py_sci_prog_12_fileinout_rcd_05 (18:46) : https://youtu.be/mFdrSXMkW4Y
+
+13주차_실습_2 : py_sci_prog_12_fileinout_rcd_06 (16:43) : https://youtu.be/SQ_mBOTtx0s
+
+13주차_실습_3 : py_sci_prog_12_fileinout_rcd_07_ex (20:18) : https://youtu.be/T2FQ1f0Rk1I
+
+13주차_실습_4 : py_sci_prog_12_fileinout_rcd_08_ex (11:03) : https://youtu.be/LI3FegFTuTI
+
+14주차_보강_1 : py_sci_prog_12_fileinout_rcd_09_ex (09:23) : https://youtu.be/IgDLHw_sDuE
+
+14주차_보강_2 : py_sci_prog_12_fileinout_rcd_10_ex (16:29) : https://youtu.be/A714iJMB664
+
+14주차_보강_3 : py_sci_prog_13_DB_ex_sol_rcd_1 (24:42) : https://youtu.be/IudRLa2PvxQ
+
+14주차_보강_4 : py_sci_prog_13_DB_ex_sol_rcd_2 (08:03) : https://youtu.be/rGtAfQiVvow
+
+
