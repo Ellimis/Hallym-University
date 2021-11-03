@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        function search(array, value) {
+            let cnd = false;
+
+            document.write(`${value} 의 위치를 검색합니다.<br>`);
+            for(let i in array) {
+                if(array[i] == value) { 
+                    document.write(`${parseInt(i)+1} 번째에 있습니다.<br>`);
+                    cnd = true;
+                }
+            }
+            if(cnd == false) {
+                document.write("존재하지 않는 데이터 입니다.<br>");
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var array = [30, 40, 50, 60, 70, 80];
+        search(array, 50);
+        search(array, 65);
+    </script>
+</body>
+</html>

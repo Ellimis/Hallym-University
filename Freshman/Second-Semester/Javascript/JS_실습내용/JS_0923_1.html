@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var angle = prompt("각의 종류를 입력하세요.\n 예각, 둔각, 직각, 평각");
+        switch(angle){
+            case '예각': document.write(`입력한 ${angle} 의 크기는 0 ~ 89 도 입니다.`);
+            break;
+            case '둔각': document.write(`입력한 ${angle} 의 크기는 91 ~ 179 도 입니다.`);
+            break;
+            case '직각': document.write(`입력한 ${angle} 의 크기는 90 도 입니다.`);
+            break;
+            case '평각': document.write(`입력한 ${angle} 의 크기는 180 도 입니다.`);
+            break;
+            default: document.write("없습니다.");
+            break;
+        }
+    </script>
+</body>
+</html>

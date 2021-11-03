@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        function array_print(array, message) {
+            document.write(`${message} 배열 원소 출력 <br>`);
+            for(let value of array) {
+                document.write(value, "<br>");
+            }
+            document.write("<br>");
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var dim1 = [3, 5, 6, 12, 64, 9, 55];
+        var dim2 = ['tree', 'star', 'sun', 'three', 'java'];
+        var dim3 = [3.4, 6.5, 12.4, 87.4, 7.8, 5.7];
+        array_print(dim1, "dim1");
+        array_print(dim2, "dim2");
+        array_print(dim3, "dim3");
+    </script>
+</body>
+</html>

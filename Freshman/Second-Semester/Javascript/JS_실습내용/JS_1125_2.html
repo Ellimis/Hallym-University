@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 이벤트 모델 </title>
+    <script>
+        window.onload = function() {
+            let divOv = document.getElementById("h1");
+            let mOver = function() { divOv.style.color="red"; }
+            let mLeave = function() { divOv.style.color="green"; }
+            let mDown = function() { divOv.style.color="blue"; }
+            divOv.addEventListener("mouseover", mOver);
+            divOv.addEventListener("mouseleave", mLeave);
+            divOv.addEventListener("mousedown", mDown);
+        }
+    </script>
+</head>
+<body>
+    <h1 id="h1" style="text-align: center; color: blue;"> 글씨를 클릭해 보세요 </h1>
+</body>
+</html>

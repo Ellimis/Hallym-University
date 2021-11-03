@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+    <script>
+        function Rec(width, length) {
+            this.width = width;
+            this.length = length;
+            this.area = function() { return this.width*this.length; };
+            this.girth = function() { return 2*(width+length); };
+            this.print = function() { return `가로 : ${this.width}, 세로 : ${this.length}, 넓이 : ${this.area()}, 둘레 : ${this.girth()}<br>`;}
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var rec = [];
+        rec.push(new Rec(90, 92));
+        rec.push(new Rec(94, 96));
+        rec.push(new Rec(80, 92));
+        document.write("사각형 넓이와 둘레를 출력합니다.<br>");
+        for(let cont in rec) {
+            document.write(rec[cont].print());
+        }
+    </script>
+</body>
+</html>

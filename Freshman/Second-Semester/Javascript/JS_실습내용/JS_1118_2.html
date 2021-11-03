@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 이벤트 모델 </title>
+    <script>
+        var insert = function() {
+            let array = new Array();
+
+            while(true) {
+                let sth = prompt("준비물을 입력하세요.\n더 이상 없으면 완료를 입력하세요.");
+                if(sth == "완료") break;
+                array.push(sth);
+            }
+            alert(`여행 준비물 목록을 출력합니다.\n${array.toString()}`);
+
+            while(true) {
+                let sth = prompt("준비완료 한 물품을 입력하세요.\n더 이상 없으면 완료를 입력하세요.");
+                if(sth == "완료") break;
+                for(let i in array) {
+                    if(sth == array[i]) array.splice(i, 1);
+                }
+            }
+            alert(`앞으로 준비해야 할 목록을 출력합니다.\n${array.toString()}`);
+        }
+    </script>
+</head>
+<body>
+    <input type="button"  value="여행 준비물 점검" onclick="insert()" />
+</body>
+</html>

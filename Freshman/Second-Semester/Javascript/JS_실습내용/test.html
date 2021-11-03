@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> Test Site </title>
+    <script>
+        let loadform = function() {
+            let result = iform.userID.value + "\n";
+            result += iform.passWD.value;
+            alert(result);
+        }
+
+        window.onload = function() {
+            let teld = document.getElementById("userID2");
+            teld.onkeydown = function() {
+                //String.fromCharCode() : 아스키 코드를 문자로 변환
+                //event.keyCode : 키보드에서 입력한 키
+                alert(`키보드 클릭된 키는 ${String.formCharCode(event.keyCode)}`);
+            };
+        }
+    </script>
+</head>
+<body>
+    <form name="iform" onsubmit="loadform()">
+        userID : <input type="text" name="userID" size="15"/><br><br>
+        password : <input type="password" name="passWD" size="15"/><br><br>
+        <input type="submit" value="폼 전송"/>
+        <input type="reset" value="리셋"/><br><br>
+        
+        userID2 : <input type="password" id="userID2" size="15"/>
+    </form>
+</body>
+</html>

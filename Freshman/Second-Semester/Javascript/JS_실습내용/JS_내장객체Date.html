@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+</head>
+<body>
+    <script>
+        //Date 객체 생성, 생성자 함수에 매개변수를 지정하지 않으면 
+        //현재의 시각으로 초기화 되어 날짜 객체 생성
+        let date = new Date(); 
+        document.write(`1. date.getFullYear() : ${ date.getFullYear()} <br>`); //4자리 연도 
+        document.write(`2. date.getMonth() : ${ date.getMonth()+1} <br>`); //0~11까지 월
+        document.write(`3. date.getDay() : ${ date.getDay()} <br>`); //0~6까지 요일
+        document.write(`4. date.getHours() : ${ date.getHours()} <br>`); // 0~23까지 시간
+        document.write(`5. date.getMinutes() : ${ date.getMinutes()} <br>`);  //0~59까지의 분
+        document.write(`6. date.getSeconds() : ${ date.getSeconds()} <br>`); //0~59까지의 초
+        document.write(`7. date.getDate() : ${ date.getDate()} <br>`); //1~31까지 날짜
+        //Date(yyyy, mm, dd) , 사용자가 지정한 연도, 월, 일로 날짜 객체 생성
+        //언제 로그인했는지 알고자 할 때 사용
+        let date_2 = new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
+        document.write(`8. date_2.getFullYear() : ${ date_2.getFullYear()} <br>`); //1~31까지 날짜
+    </script>
+</body>
+</html>

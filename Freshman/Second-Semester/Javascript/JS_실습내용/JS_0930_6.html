@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> Test Site </title>
+</head>
+<body>
+    <script>
+        var kor = ['사과', '나무', '꽃', '하늘', '여우', '개', '벌', '소'];
+        var eng = ['apple', 'tree', 'flower', 'sky', 'fox', 'dog', 'bee', 'cow'];
+        var rndNum = 0, cnt = 0;
+
+        for(let i = 0; i < 7; i++) {
+            rndNum = parseInt(Math.random()*8);
+            var check = prompt(`${eng[rndNum]} 의미를 입력하세요.`);
+            if(check == kor[rndNum]) {
+                alert("정답입니다.");
+                cnt++;
+            } else {
+                alert(`틀렸습니다. ${eng[rndNum]}의 의미는 ${kor[rndNum]} 입니다.`);
+            }
+        }
+        document.write(`정답 횟수는 ${cnt} 번 입니다.`);
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        function dim_init(cnt) {
+            myArray = [];
+            document.write(`${cnt} 개의 정수를 생성합니다.<br>`);
+
+            for(let i = 0; i < cnt; i++){
+                myArray[i] = (parseInt)(Math.random()*90)+10;
+                document.write(`${i} ] ${myArray[i]}<br>`);
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var cnt = prompt("몇 개의 데이터가 필요한가요? ");
+        dim_init(cnt);
+    </script>
+</body>
+</html>

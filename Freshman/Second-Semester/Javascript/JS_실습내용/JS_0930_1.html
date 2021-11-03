@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> Test Site </title>
+</head>
+<body>
+    <script>
+        var hap = prompt("주사위 합을 입력하세요.");
+        for(let i = 1; i <= 6; i++) {
+            for(let j = 1; j <= 6; j++) {
+                if((i+j)==hap) document.write(`(${i}, ${j})`, "<br>");
+            }
+        }
+    </script>
+</body>
+</html>

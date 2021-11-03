@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+</head>
+<body>
+    <script>
+        var data= Number(prompt("자료구조 : "));
+        var computer = Number(prompt("컴퓨터구조 : "));
+        var com = Number(prompt("데이터통신 : "));
+        var hap = data + computer + com;
+        var ave = parseInt(hap/3);
+        var answer = `자료구조 : ${data}\n`;
+        answer += `컴퓨터구조 : ${computer}\n`;
+        answer += `데이터통신 : ${com}\n`;
+        answer += `전체합 : ${hap}\n`;
+        answer += `평균 : ${ave}\n`;
+        
+        if(ave >= 60) {
+            if(data > 40 && computer > 40 && com > 40 )
+                alert(`${answer}\n합격입니다.`);
+            else alert(`${answer}\n과락으로 인한 불합격.`);
+        } else alert(`${answer}\n평균미만으로 인한 불합격.`);
+    </script>
+</body>
+</html>

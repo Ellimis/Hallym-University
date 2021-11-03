@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var subject = ["컴퓨터 구조", "자료 구조", "데이터베이스"];
+        var userScore =[];
+        var sum = 0, avg = 0;
+        var conf = true;
+        var pass;
+        for(var i = 0; i < subject.length; i++){
+            userScore[i] = Number(prompt(subject[i] + " 점수 입력"));
+            if(userScore[i] <= 40) conf = false;
+            sum += userScore[i];
+        }
+        avg = parseInt(sum / 3);
+
+        if(avg >= 60 && conf == true) pass = "합격입니다.";
+        else if (avg < 60 && conf == true) pass = "평균 미달로 인한 불합격";
+        else if (avg >= 60 && conf == false) pass = "과락으로 인한 불합격";
+
+        alert(`${subject[0]} : ${userScore[0]} 점\n${subject[1]} : ${userScore[1]} 점\n${subject[2]} : ${userScore[2]} 점\n전체합 : ${sum}\n평균 : ${avg}\n ${pass}`);
+    </script>
+</body>
+</html>

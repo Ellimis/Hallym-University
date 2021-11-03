@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+    <script>
+        function Lock(num, pass) {
+            this.num = num;
+            this.pass = pass;
+        }
+        Lock.prototype.setPass = function(repass) {
+            this.pass = repass;
+        }
+        Lock.prototype.display = function() {
+            document.write(`사물함 번호 : ${this.num}, 비밀번호 ${this.pass}<br>`);
+        }
+    </script>
+</head>
+<body>
+    <script>
+        let lock = [];
+        let num;
+        var cnt = 0;
+
+        for(let i = 0; i < 5; i++) {
+            num = prompt(`${i} 번째 사물함 번호를 입력하세요.`);
+            lock[i] = new Lock(num, parseInt(Math.random()*9000)+1000);
+        }
+        document.write('객체 내용을 출력합니다.<br>');
+        for(let index in lock) {
+            lock[index].display();
+        }
+
+        alert('비밀번호를 변경하려는 사물함 번호를 입력하세요.');
+        num = prompt("사물함 번호를 입력하세요.");
+        
+        for(let index in lock) {
+            if(lock[index].num == num) {
+                lock[index].setPass(parseInt(Math.random()*9000)+1000);
+                document.write("변경된 객체 내용 출력<br>");
+                lock[index].display();
+                cnt++;
+                break;
+            }
+        }
+        if(cnt == 0) {
+            document.write("해당 데이터가 없습니다.<br>");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 이벤트 모델 </title>
+    <script>
+        window.onload = function() {
+            let divOv = document.getElementById("firstDiv");
+            let mOver = function() {
+                divOv.style.backgroundColor = "green";
+            }
+            divOv.addEventListener("mouseover", mOver);
+            divOv.addEventListener("mouseleave", function() {
+                divOv.style.backgroundColor = "coral";})
+        }
+    </script>
+</head>
+<body>
+    <h1 style="text-align:center";>사각형 박스에 마우스 커서를 놓으세요</h1>
+    <div id = "firstDiv" style = "width:100px; height:100px; background-color: coral; margin:0 auto;"></div>
+</body>
+</html>

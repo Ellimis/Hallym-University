@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        document.write("<h1>컴퓨터 가위 바위 보 맞추기</h1>");
+
+        var rndNum = Math.floor(Math.random() * 3);
+        var userChoice = prompt("가위, 바위, 보 셋 중에 하나 골라주세요!", "", "<br>");
+
+        switch(rndNum){
+            case 0:
+                if (userChoice == "가위") document.write("비겼습니다!", "<br>");
+                else if(userChoice == "바위") document.write("이겼습니다!", "<br>");
+                else document.write("졌어요.", "<br>");
+                break;
+            case 1:
+                 if (userChoice == "가위") document.write("졌어요.", "<br>");
+                else if(userChoice == "바위") document.write("비겼습니다!", "<br>");
+                else document.write("이겼습니다!", "<br>");
+                break;
+            case 2:
+                if (userChoice == "가위") document.write("이겼습니다!", "<br>");
+                else if(userChoice == "바위") document.write("졌어요.", "<br>");
+                else document.write("비겼습니다!", "<br>");
+                break;
+            default:
+                document.write("잘못입력하셨습니다.", "<br>");
+                break;
+        }
+    </script>
+</body>
+</html>

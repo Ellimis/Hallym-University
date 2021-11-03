@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+    <script>
+        var tag_exam = function(a, b, c) {
+            let ave;
+            ave = parseInt((a+b)/c);
+            document.write(`ave = ${ave}<br>`);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="tag_exam(90, 80, 2)">함수 호오오출</button>
+    <form>
+        <input type="button" value="함수호출" onclick="tag_exam(90, 80, 2)"/>
+    </form>
+</body>
+</html>

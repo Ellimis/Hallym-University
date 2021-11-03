@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <title> 함수 </title>
+    <script>
+        function big(x, y) {
+            if(x <= y) return y;
+            else return x;
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var x = Number(prompt("비교할 첫 번째 값을 입력하세요."));
+        var y = Number(prompt("비교할 두 번째 값을 입력하세요."));
+        document.write(`${x} 와 ${y} 값 중에서 더 큰 값은 ${big(x, y)} 입니다.`);
+    </script>
+</body>
+</html>

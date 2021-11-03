@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+    <script>
+        function Student(name, java, python) {
+            this.name = name;
+            this.java = java;
+            this.python = python;
+            this.sum = function() { return java+python; };
+            this.toString = function() { return `name : ${name}<br> sum = ${this.sum()}`};
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var Student = new Student('길동', 90, 90);
+        document.write(Student.toString());
+    </script>
+</body>
+</html>

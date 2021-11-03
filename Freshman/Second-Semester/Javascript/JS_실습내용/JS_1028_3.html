@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <title> 함수 </title>
+    <script>
+        function grade() {
+            let array = [];
+
+            for(let i = 0; i < 7; i++) {
+                array[i] = Number(prompt(`${i+1} 번째 심사위원 점수를 입력하세요.`));
+            }
+
+            let hap = 0;
+            let max = 0;
+            let min = array[0];
+            for(let i = 0; i < array.length; i++) {
+                hap += array[i];
+                if(max <= array[i]) max = array[i];
+                else if(min >= array[i]) min = array[i];
+            }
+
+            document.write("심사위원 점수를 출력합니다.<br>");
+            for(let i = 0; i < array.length; i++) {
+                document.write(array[i]);
+                if(isNaN(array[i+1])) document.write(" ");
+                else document.write(", ");
+            }
+            document.write(`<br>${max} 와(과) ${min} 을 뺀 점수는 ${hap-max-min} 입니다.`);
+        }
+    </script>
+</head>
+<body>
+    <a href="javascript:grade();">점수 계산</a>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+    <script>
+        var reverse_str = function(str) {
+            for(let i = str.length-1; i >= 0; i--) {
+                document.write(str[i]);
+            }
+            document.write(`<br>"${str}" 문자열을 거꾸로 출력했습니다.`);
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var str = prompt('문자열 입력');
+        document.write(`"${str}" 문자열을 거꾸로 출력합니다.<br>`);
+    </script>
+    <form>
+        <input type="button" value="문자열 역순" onclick="reverse_str(str)"/>
+    </form>
+</body>
+</html>

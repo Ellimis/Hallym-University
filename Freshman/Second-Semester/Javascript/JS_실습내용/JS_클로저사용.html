@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <title> 함수 </title>
+    <script>
+        function test(name) {
+            let output = `Hello ${name} !!!<br>`;
+            return function() {
+                document.write(output);
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var test1 = test("Web");
+        var test2 = test("JavaScript");
+        test("Web")();
+        test("javascript")();
+        test1();
+        test2();
+    </script>
+</body>
+</html>

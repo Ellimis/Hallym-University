@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 이벤트 모델 </title>
+    <script>
+        let day = function(num) {
+            let answer = new Array("일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일");
+            return answer[num];
+        }
+        var toDay = function() {
+            let date = new Date()
+            /*
+            let str;
+            with(date) {
+                str += `${getFullYear()} 년 \n`;
+                str += `${getMonth()} 월 \n`;
+                str += `${getDate()} 일 \n`;
+                str += `${day(getDay())}\n`;
+                if(getHours >= 12) str += `오후 ${getHours()-12} 시\n`;
+                else str += `오전 ${getHours()} 시\n`;
+                str += `${getMinuter()} 분 \n`;
+            }
+            */
+            let str = '현재 날짜는 다음과 같습니다.\n';
+            str += date.getFullYear() + ' 년\n';
+            str += (date.getMonth()+1) + ' 월\n';
+            str += date.getDate() + ' 일\n';
+            str += day(date.getDay()) + '\n';
+            if(date.getHours >= 12) str += '오후 ' + (date.getHours()-12) + ' 시\n';
+            else str += '오전 ' + date.getHours() + ' 시\n';
+            str += date.getMinutes() + ' 분\n';
+            alert(str);
+        }
+        var fuDay = function() {
+            let day = prompt("며칠 후 입니까?");
+            let date = new Date();
+            with(date) {
+                afterDate = new Date(getFullYear(), getMonth(), getDate()+Number(day));
+            }
+            let str = `${day} 후의 날짜는\n`;
+            str += `${afterDate.getFullYear()}년 ${afterDate.getMonth()+1} 월 ${afterDate.getDate()} 일`;
+            alert(str);
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="현재 날짜 출력" onclick="toDay()"/><br><br>
+    <input type="button" value="n일 후의 날짜 출력" onclick="fuDay()"/>    
+</body>
+</html>

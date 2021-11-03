@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 이벤트 모델 </title>
+    <script>
+        window.onload=function(){
+            let event1 = document.getElementById("tri");
+            event1.onclick = function() {
+                let str = '';
+                for(let i = 0; i < 5; i++) {
+                    for(let j = 0; j < 5; j++) {
+                        if(j <= i) str += '※';
+                        else str += ' ';
+                    }
+                    str +='\n';
+                }
+                alert(str);
+                event.onclick=null;
+            }
+
+            let event2 = document.getElementById("rec");
+            event2.onclick = function() {
+                let str = '';
+                for(let i = 0; i < 5; i++) {
+                    if(i == 0 || i == 4) {
+                        for(let j = 0; j < 5; j++) {
+                            str += '♣';
+                        }
+                        str += '\n';
+                    }
+                    else {
+                        str += '♣';
+                        for(let j = 1; j < 4; j++) { str += '   '; }
+                        str += '♣';
+                        str +='\n';
+                    }
+                }
+                alert(str);
+                event.onclick=null;
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button"  id="tri"  value="삼각형그리기" /><br><br>
+    <input type="button"  id="rec" value="사각형그리기" />
+</body>
+</html>

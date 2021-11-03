@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num = prompt("정수를 입력하세요.");
+        var cnt = 0;
+        document.write(`1부터 100사이의 ${num} 배수를 출력합니다.`, "<br>");
+        /*
+        for(var i = 1; i <= 100; i++){
+            if(i%num==0) {
+                document.write(i, "<br>");
+                cnt++;
+            }
+        }
+        
+        var i = 1;
+        while(i <= 100) {
+            if(i%num == 0){
+                document.write(i, "<br>");
+                cnt++;
+            }
+            i++;
+        }
+        */
+        var i = 1;
+        do{
+            if(i%num == 0){
+                cnt++;
+                document.write(i, "<br>");
+            }
+            i++;
+        } while(i <= 100);
+
+        document.write(`${num} 배수의 개수는 ${cnt} 개 입니다.`);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        function game(user) {
+            let rnd = (parseInt)(Math.random()*900000)+100000;
+            let cnt = 0;
+
+            document.write(`${user} 사용자<br>`);
+            document.write(`생성된 난수 : ${rnd}<br>`);
+            while(rnd > 0) {
+                if((rnd%10)%3==0) {
+                    cnt++;
+                    document.write(`박수짝 ${cnt}<br>`);
+                }
+                rnd = parseInt(rnd / 10);
+            }
+            return cnt;
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var user1 = prompt("사용자 1");
+        var user2 = prompt("사용자 2");
+
+        var cnt1 = game(user1);
+        var cnt2 = game(user2);
+
+        if (cnt1 > cnt2) {
+            document.write(`${user1} 사용자가 이겼습니다.`);
+        } else if (cnt1 == cnt2){
+            document.write(`${user1} 과 ${user2} 사용자가 비겼습니다.`);
+        } else {
+            document.write(`${user2} 사용자가 이겼습니다.`);
+        }
+    </script>
+</body>
+</html>

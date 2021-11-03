@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        var lock_init = function(cnt) {
+            let tempArray = [];
+            document.write(`${cnt} 개의 사물함 번호를 생성합니다.`, "<br>");
+            for(let i = 0; i < cnt; i++) {
+                tempArray[i] = parseInt(Math.random() * 100) + 1;
+                document.write((i+1) + " 번째 사물함번호 : " + tempArray[i], "<br>");
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var cnt = prompt("몇 개의 사물함이 필요한가요?");
+        lock_init(cnt);
+    </script>
+</body>
+</html>

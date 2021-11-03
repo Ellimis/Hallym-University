@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 이벤트 모델 </title>
+    <script>
+        window.onload = function() {
+            let event = document.getElementById("firstDiv");
+            event.onmousedown = function() {
+                alert("구악");
+            }
+        }
+    </script>
+</head>
+<body>
+    <br><br>
+    <div id="firstDiv" style="width:100px; height:100px; background-color:coral;"></div>
+</body>
+</html>

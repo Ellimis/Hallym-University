@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        function addNumber(a, b) {
+            return (a+b);
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var d1 = parseInt(prompt("첫 번째 정수 입력 : "));
+        var d2 = parseInt(prompt("두 번째 정수 입력 : "));
+        var result = addNumber(d1, d2);
+        document.write(`변수에 저장된 값 출력 : ${result}<br>`);
+        document.write(`반환받은 결과를 바로 출력 : ${addNumber(23, 40)}<br>`);
+    </script>
+</body>
+</html>

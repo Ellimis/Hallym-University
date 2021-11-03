@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        function triangle_write(type, cnt) {
+            document.write(`${type} 으로 채워진 삼각형을 ${cnt} 행 만큼 출력합니다.<br>`);
+            for(let i = cnt; i > 0; i--) {
+                for(let j = 1; j <= cnt; j++) {
+                    if(i <= j) document.write(type);
+                    else document.write("&nbsp;");
+                }
+                document.write("<br>");
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        triangle_write('!', parseInt(Math.random()*8)+3);
+        triangle_write('*', parseInt(Math.random()*8)+3);
+    </script>
+</body>
+</html>

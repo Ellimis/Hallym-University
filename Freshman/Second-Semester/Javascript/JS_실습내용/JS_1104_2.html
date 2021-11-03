@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+</head>
+<body>
+    <script>
+        let student = {
+            name : '길동',
+            java : 90,
+            python : 95,
+            sum : function() { return this.java+this.python; },
+            toString : function() { return `name : ${this.name}<br>java : ${this.java}<br>python : ${this.python}<br>sum : ${this.sum()}`;}
+        }
+        document.write("리터럴 표기법을 사용한 객체<br>");
+        document.write(student.toString());
+    </script>
+</body>
+</html>

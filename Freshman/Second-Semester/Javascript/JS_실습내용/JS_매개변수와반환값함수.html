@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        function defaultPara(a, b = 20, c = 30) {
+            return a+b+c;
+        }
+    </script>
+</head>
+<body>
+    <script>
+        document.write(`defaultPara(30) : ${defaultPara(30)}`, "<br>");
+        document.write(`defaultPara(30, 20) : ${defaultPara(30, 20)}`, "<br>");
+        document.write(`defaultPara(30, 20, 10) : ${defaultPara(30, 20, 10)}`, "<br>");
+    </script>
+</body>
+</html>

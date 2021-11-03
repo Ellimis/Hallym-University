@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 이벤트 모델 </title>
+    <script>
+        window.onload = function() {
+            let getDiv = document.getElementById("data");
+            let process = function() {
+                str = `입력한 내용은 다음과 같습니다.\n`;
+                str += `이름 : ${data.userName.value}\n`;
+                str += `아이디 : ${data.userID.value}\n`;
+                str += `연락처 : ${data.tel1.value} - ${data.tel2.value} - ${data.tel3.value}`;
+                alert(str);
+            }
+            let remove = function() {
+                data.userName.value = "";
+                data.userID.value = "";
+                data.tel1.value = "";
+                data.tel2.value = "";
+                data.tel3.value = "";
+            }
+            let check = document.getElementById("check");
+            let cancel = document.getElementById("cancel");
+            check.addEventListener("mousedown", process);
+            cancel.addEventListener("mousedown", remove);
+        }
+    </script>
+</head>
+<body>
+    <form id="data">
+        userName : <input type="text" name="userName" size="15"/><br>
+        userID : <input type="password" name="userID" size="15"/><br>
+        Tel : <input type="text" name="tel1" size="7"/> - 
+        <input type="text" name="tel2" size="7"/> - 
+        <input type="text" name="tel3" size="7"/><br><br>
+        <input id="check" type="button" value="확인"/>&nbsp;&nbsp;
+        <input id="cancel" type="button" value="취소"/>
+    </form>
+</body>
+</html>

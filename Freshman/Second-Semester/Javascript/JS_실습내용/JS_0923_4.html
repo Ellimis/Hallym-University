@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num = prompt("정수를 입력하세요.");
+        document.write(`입력한 수 ${num} 에서 역순으로 짝수만 출력합니다.`, "<br>");
+        while(num > 0) {
+            if((num%10)%2 == 0) document.write(num%10);
+            num = parseInt(num / 10);
+        };
+    </script>
+</body>
+</html>

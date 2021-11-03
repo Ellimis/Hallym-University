@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> Test Site </title>
+</head>
+<body>
+    <script>
+        var dim = ['sum', 'mon', 'tue', 'wnd', 'thu', 'fri', 'sat'];
+        for(let i = 0; i < dim.length; i++){
+            document.write(dim[i], "<br>");
+        }
+    </script>
+    <script>
+        var dim = ['sum', 'mon', 'tue', 'wnd', 'thu', 'fri', 'sat'];
+        for(let i in dim){
+            document.write(dim[i], "<br>");
+        }
+    </script>
+    <script>
+        var dim = ['sum', 'mon', 'tue', 'wnd', 'thu', 'fri', 'sat'];
+        for(let i of dim){
+            document.write(i, "<br>");
+        }
+    </script>
+</body>
+</html>

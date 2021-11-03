@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+    <script>
+        function Account(name, balance) {
+            this.name = name;
+            this.balance = balance;
+            this.deposit = function(money) { this.balance += money; };
+            this.withDraw = function(money) { this.balance -= money; };
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var person = new Account('자바스크립트', 50000);
+        document.write(`예금주 : ${person.name},    잔액 : ${person.balance}<br>`);
+        document.write('50000을 입금합니다.<br>');
+        person.deposit(50000);
+        document.write('입금 후 잔액을 출력합니다.<br>');
+        document.write(`잔액 : ${person.balance}<br>`);
+
+        document.write('30000을 출금합니다.<br>');
+        person.withDraw(30000);
+        document.write('출금 후 잔액을 출력합니다.<br>');
+        document.write(`잔액 : ${person.balance}<br>`);
+    </script>
+</body>
+</html>

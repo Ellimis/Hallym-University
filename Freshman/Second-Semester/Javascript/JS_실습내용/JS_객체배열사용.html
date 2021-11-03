@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+    <script>
+        function Student(name, java, python) {
+            this.name = name;
+            this.java = java;
+            this.python = python;
+            this.sum = function() { return java+python; };
+            this.toString = function() { return `name : ${name} sum = ${this.sum()}\n`};
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var student = [];
+        student.push(new Student('윤경', 90, 92));
+        student.push(new Student('현하', 94, 96));
+        student.push(new Student('지민', 80, 92));
+        var output = '이름                합계\n';
+        for(let key in student) {
+            output += student[key].toString();
+        }
+        alert(output);
+    </script>
+</body>
+</html>

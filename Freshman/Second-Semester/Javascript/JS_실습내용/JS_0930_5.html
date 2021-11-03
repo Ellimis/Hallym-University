@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> Test Site </title>
+</head>
+<body>
+    <script>
+        var kor = ['사과', '나무', '꽃', '하늘', '여우', '개', '벌'];
+        var eng = ['apple', 'tree', 'flower', 'sky', 'fox', 'dog', 'bee'];
+        var num = -1;
+
+        var name = prompt("단어를 입력하세요.");
+        for(let i = 0; i < kor.length; i++) {
+            if(name == kor[i]) num = i;
+        }
+        if(num == -1) alert(`${name} : 없는 단어 입니다.`);
+        else {
+            alert(`${name} : ${eng[num]}`);
+        }
+    </script>
+</body>
+</html>

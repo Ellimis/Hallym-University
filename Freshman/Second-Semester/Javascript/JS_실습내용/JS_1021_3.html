@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        var result_report = function(place, cnt) {
+            let memory = 0;
+            document.write("설문 결과를 출력합니다.", "<br>");
+            document.write("<br>");
+            for(let i = 0; i < place.length; i++) {
+                document.write(`${place[i]} : `);
+                for(let j = 0; j < cnt[i]; j++) {
+                    document.write("*");
+                }
+                if(memory <= cnt[i]) memory = i;
+                document.write("<br>");
+            }
+            document.write("<br>");
+            document.write(`가장 선호하는 장소는 ${place[memory-1]} 입니다.`);
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var place = ['해남', '다산초당', '곰배령', '자작나무 숲', '강화도'];
+        var answer = [3, 8, 10, 12, 7];
+        result_report(place, answer);
+    </script>
+</body>
+</html>

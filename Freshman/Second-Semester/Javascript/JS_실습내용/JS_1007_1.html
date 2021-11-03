@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 함수 </title>
+    <script>
+        function myPlus(x, y, type) {
+            document.write(`${x} 와 ${y} 에 대한 ${type} 연산 결과를 출력합니다.<br>`);
+            document.write(`결과 : ${x+y}`);
+        }
+        function myMult(x, y, type) {
+            document.write(`${x} 와 ${y} 에 대한 ${type} 연산 결과를 출력합니다.<br>`);
+            document.write(`결과 : ${x*y}`);
+        }
+        function myDiv(x, y, type) {
+            document.write(`${x} 와 ${y} 에 대한 ${type} 연산 결과를 출력합니다.<br>`);
+            document.write(`결과 : ${x/y}`);
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var cnd = prompt("연산자를 입력하세요.(+, *, /)");
+        var num1 = (parseInt)(Math.random()*50)+1;
+        var num2 = (parseInt)(Math.random()*50)+1;
+
+        switch(cnd) {
+        case '+':
+            myPlus(num1, num2, cnd);
+            break;
+        case '*':
+            myMult(num1, num2, cnd);
+            break;
+        case '/':
+            myDiv(num1, num2, cnd);
+            break;
+        }
+    </script>
+</body>
+</html>

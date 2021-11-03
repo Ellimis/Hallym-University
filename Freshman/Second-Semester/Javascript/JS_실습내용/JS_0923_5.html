@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num = prompt("세자리수 이상의 정수를 입력하세요.");
+        var i, cnt = 1, div = 1, sum = 0, memorizeNum = 0;
+        memorizeNum = num;
+        if(num%100 == num) alert("자릿수가 잘못되었습니다.");
+        else document.write(`입력한 정수 = ${num}`, "<br>");
+        while(parseInt(num / 10) > 0) {
+            cnt++;
+            div *= 10;
+            num = parseInt(num / 10);
+        };
+        num = memorizeNum;
+
+        for(i = 0; i < cnt; i++){
+            sum += parseInt(num / div);
+            document.write(`${parseInt(num / div)} : ${sum}`, "<br>");
+            num %= div;
+            div /= 10;
+        }
+    </script>
+</body>
+</html>

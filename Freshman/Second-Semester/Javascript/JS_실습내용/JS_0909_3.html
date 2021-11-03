@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var price = prompt("원래 가격을 입력하세요 : ");
+        var salePer = prompt("할인율을 입력하세요 : ");
+        document.write("원래 가격은 " + price + " 입니다.", "<br>");
+        document.write("할인율은 " + salePer + " % 입니다.", "<br>");
+        document.write("할인된 가격은 " + (price*salePer/100) + " 원 절약한 " + (price - price*salePer/100) + " 입니다.", "<br>");
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 이벤트 모델 </title>
+    <script>
+        let process = function(f) {
+            str = `입력한 내용은 다음과 같습니다.\n`;
+            str += `이름 : ${f.userName.value}\n`;
+            str += `아이디 : ${f.userID.value}\n`;
+            str += `연락처 : ${f.tel1.value} - ${f.tel2.value} - ${f.tel3.value}`;
+            alert(str);
+        }
+        let cancel = function(f) {
+            f.userName.value = "";
+            f.userID.value = "";
+            f.tel1.value = "";
+            f.tel2.value = "";
+            f.tel3.value = "";
+        }
+    </script>
+</head>
+<body>
+    <form id="data">
+        userName : <input type="text" name="userName" size="15"/><br>
+        userID : <input type="password" name="userID" size="15"/><br>
+        Tel : <input type="text" name="tel1" size="7"/> - 
+        <input type="text" name="tel2" size="7"/> - 
+        <input type="text" name="tel3" size="7"/><br><br>
+        <input type="button" value="확인" onclick="process(this.form)"/>&nbsp;&nbsp;
+        <input type="button" value="취소" onclick="cancel(this.form)"/>
+    </form>
+</body>
+</html>

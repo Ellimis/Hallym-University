@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title> 이벤트 모델</title>
+        <script>
+            window.onload=function(){
+                let event = document.getElementById("firstDiv"); //지정한 firstDiv 요소를 가져와 
+                event.onclick = function(){  //click 이벤트에 연결
+                    alert('이벤트 핸들러가 실행되었습니다');
+                    event.onclick=null; //이벤트 제거, 두번째 클릭부터는 이벤트 발생 없음
+                }
+            }
+        </script>
+    </head>
+<body>
+    <h1 style="text-align: center;"> 사각형 박스를 클릭하세요</h1>
+    <div align="center" id="firstDiv" style="width: 100px; height: 100px; background-color: coral; margin: 0 auto;"></div>
+<!--인라인 이벤트 모델 : 지극히 간단한 경우에만 사용
+    보통은 기본 이벤트 모델과 ~~ 모델 사용-->
+</body>
+</html>

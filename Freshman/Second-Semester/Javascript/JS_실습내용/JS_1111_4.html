@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title> 함수 </title>
+    <script>
+        var fnc = function(s) {
+            let list = s.split(' ');
+            let hap = list[0];
+            for(let i = 1; i < list.length; i++) {
+                if(list[i] == '+') {
+                    hap = Number(hap) + Number(list[i+1]);
+                } else if(list[i] == '-') {
+                    hap -= list[i+1];
+                } else if(list[i] == '*') {
+                    hap *= list[i+1];
+                } else if(list[i] == '/') {
+                    hap = parseInt(hap/list[i+1]);
+                } else if(list[i] == '%') {
+                    hap %= list[i+1];
+                }
+            }
+        document.write(`${s} = ${hap}`);
+        }
+    </script>
+</head>
+<body>
+    <script>
+        fnc(prompt('수식을 입력하세요.'));
+    </script>
+</body>
+</html>

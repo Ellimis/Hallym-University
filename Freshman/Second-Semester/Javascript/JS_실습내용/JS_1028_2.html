@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <title> 함수 </title>
+    <script>
+        function census() {
+            let cnt = [0, 0, 0];
+            
+            for(let i = 0; i < 5; i++) {
+                let num = prompt("1.자작나무 숲 2.동백꽃 3. 승목원(?) 숫자를 입력하세요.");
+                cnt[num-1]++;
+            }
+            alert(`설문 결과를 출력합니다.
+            자작나무 숲 : ${cnt[0]} 명
+            동백꽃 : ${cnt[1]} 명
+            승목원 : ${cnt[2]} 명`);
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <input type="button" value="설문조사" onclick="census()"/>
+    </form>
+</body>
+</html>
