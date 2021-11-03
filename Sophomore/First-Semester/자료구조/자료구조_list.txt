@@ -1,0 +1,52 @@
+class MyList {
+	private char[] array;
+	private int size;
+	
+	public MyList(int n) {
+		size = 0;
+		array = new char[n];
+	}
+	
+	public boolean isEmpty() {
+		if(size == 0) return true;
+		else return false;
+	}
+	
+	public int length() {
+		return size;
+	}
+	
+	public char retrieve(int i) {
+		if( i < 0 || i >= size) {
+			return '!';
+		}
+		else return array[i];
+	}
+	
+	public int find(char x) {
+		for(int i = 0; i < size; i++) {
+			if( array[i] == x)
+				return i;
+		}
+		return -1;
+	}
+	
+	public void replace(int i, char x) {
+		array[i] = x;
+	}
+	
+	public void delete(int i) {
+		for (int j = i; j < size-1; j++) {
+			array[j] = array[j+1];
+		}
+		size--;
+	}
+	
+	public void insert(int i, char x) {
+		for(int j = size; j > i; j--) {
+			array[j] = array[j-1];
+		}
+		array[i] = x;
+		size++;
+	}
+}

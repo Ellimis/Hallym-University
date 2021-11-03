@@ -1,0 +1,288 @@
+--------------------------------------------------------------------------------------------------------
+문제 1 원래 코드
+package week07;
+
+class Polynomial {
+	// arr -> coef , size -> degree
+	private int size;
+	private int arr[];
+	private static final int MAX = 100;
+	
+	public Polynomial() {
+		size = 0;
+		arr = new int[MAX];
+		
+		// 모든 지수에 대한 단항의 계수를 0 으로 설정
+		for(int i = 0; i < MAX; i++) 
+			arr[i] = 0;
+	}
+	
+	public void isEmpty() {
+		if(size == 0) System.out.println("True");
+		else System.out.println("False");
+	}
+	
+	// 특정 지수에 대한 계수 반환
+	public int coef(int e) {
+		return arr[e];
+	}
+	
+	// 가장 큰 지수 반환
+	public int maxExp() {
+		return MAX-1;
+	}
+	// size 반환
+	public int length() {
+		return size;
+	}
+	
+	// 지수가 인덱스번호, 계수가 값
+	// j 가 지수, k 가 계수
+	public void insert(int j, int k) {
+		arr[j] = k;
+		size++;
+	}
+	
+	// 지수가 j 인 단항의 계수 반환
+	public int retrieve(int j) {
+		if(size == 0) return -1;
+		else {
+			// 전체 확인
+			for(int i = 0; i < MAX; i++) {
+				if(arr[i] != 0 && i == j) {
+					return arr[i];
+				}
+			}
+			return 0;
+		}
+	}
+	
+	// 특정 지수에 대한 계수 변화
+	public void replace(int i, int item) {
+		arr[i] = item;
+	}
+	
+	// 특정 지수 단항 제거
+	public void delete(int j) {
+		arr[j] = 0;
+	}
+	
+	// 특정 지수 단항의 계수가 0 이 아닌 경우에만 출력
+	public void print() {
+		String str = "";
+		for(int i = MAX-1; i >= 0; i--) 
+			if(arr[i] != 0) 
+				str += arr[i] + "[" + i + "] + ";
+		
+		System.out.println(str.substring(0, str.length()-2));
+	}
+	
+	public void addEQ(Polynomial T_eq) {
+		for(int i = 0; i < MAX; i++) {
+			if(arr[i] != 0 || T_eq.retrieve(i) != 0) {
+				arr[i] += T_eq.retrieve(i);
+			}
+		}
+		
+		System.out.println("Add Result : ");
+		this.print();
+	}
+}
+
+public class p1_20195124 {
+	public static void main(String[] args) {
+		Polynomial f_eq = new Polynomial();
+		Polynomial s_eq = new Polynomial();
+		
+		f_eq.insert(0, 3);
+		f_eq.insert(1, 5);
+		f_eq.insert(5, 4);
+		f_eq.isEmpty();
+		System.out.println("length " + f_eq.length());
+		System.out.println(f_eq.retrieve(5));
+		f_eq.replace(2, 6);
+		f_eq.insert(2, 1);
+		System.out.println("length " + f_eq.length());
+		f_eq.delete(1);
+		System.out.println("length " + f_eq.length());
+		System.out.println(f_eq.retrieve(2));
+		
+		s_eq.insert(10, 3);
+		s_eq.insert(8, 5);
+		s_eq.insert(5, 4);
+		s_eq.insert(2, 2);
+		s_eq.insert(0, 7);
+		
+		f_eq.print();
+		s_eq.print();
+		s_eq.addEQ(f_eq);
+	}
+}
+
+------------------------------------------------------------------------------
+문제 2 원래 코드
+package week07;
+
+class Term {
+	// coef 가 계수, exp 가 지수
+	private int coef;
+	private int exp;
+	
+	public Term(int coef, int exp) {
+		this.coef = coef;
+		this.exp = exp;
+	}
+	public int getCoef() { return coef; }
+	public int getExp() { return exp; }
+}
+
+class Polynomial2 {
+	private Term[] items;
+	private static final int MAX = 10;
+	private int noOfTerms;
+	
+	public Polynomial2() {
+		noOfTerms = 0;
+		items = new Term[MAX];
+	}
+	
+	// items 가 비어있는지 확인
+	public boolean ispZero() {
+		if(noOfTerms == 0) return true;
+		else return false;
+	}
+	
+	// 현재 다항식의 최고차항의 지수 반환..?
+	public int maxExp() {
+		return items[0].getExp();
+	}
+	
+	public void addTerm(int c, int e) {
+		if(noOfTerms != 0) {
+			for(int i = 0; i < noOfTerms; i++) {
+				// 현재 넣으려는 단항의 지수가 i 번째에 있는 단항의 지수보다 클 때 넣고 뒤로 한칸씩 밀기 
+				if(e > items[i].getExp()) {
+					for (int j = noOfTerms; j > i; j--) {
+						items[j] = items[j - 1];
+					}
+					items[i] = new Term(c, e);
+				} else items[noOfTerms] = new Term(c, e);
+			}
+		} else items[0] = new Term(c, e);
+		
+		noOfTerms++;
+	}
+	
+	public void delTerm(int e) {
+		for(int i = 0; i < noOfTerms; i++) {
+			if(e == items[i].getExp()) {
+				for (int j = i; j < noOfTerms - 1; j++) {
+					items[j] = items[j + 1];
+				}
+			}
+		}
+		noOfTerms--;
+	}
+	
+	// 지수가 e 인 인덱스의 다음 인덱스 번호 반환..?
+	public int findNextIndex(int e) {
+		for(int i = 0; i < noOfTerms; i++) {
+			if(items[i].getExp() == e) {
+				return (i+1);
+			}
+		}
+		return -1;
+	}
+	
+	// 지수가 e 인 인덱스 번호 반환
+	public int findIndex(int e) {
+		for(int i = 0; i < noOfTerms; i++) {
+			if(items[i].getExp() == e) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	// 두 다항식을 더해주는 메소드
+	public Polynomial2 polyAdd(Polynomial2 p) {
+		Polynomial2 r = new Polynomial2();
+		int tp = 0;
+		int pp = 0;
+		
+		while(tp < this.noOfTerms && pp < p.noOfTerms) {
+			if(this.items[tp].getExp() == p.items[pp].getExp()) {
+				r.addTerm(this.items[tp].getCoef() + p.items[pp].getCoef(), p.items[pp].getExp());
+				tp++;
+				pp++;
+			} else if(this.items[tp].getExp() < p.items[pp].getExp()) {
+				r.addTerm(p.items[pp].getCoef(), p.items[pp].getExp());
+				pp++;
+			} else {
+				r.addTerm(this.items[tp].getCoef(), this.items[tp].getExp());
+				tp++;
+			}
+		}
+		
+		while(tp < this.noOfTerms) {
+			r.addTerm(this.items[tp].getCoef(), this.items[tp].getExp());
+			tp++;
+		}
+		
+		while(pp < p.noOfTerms) {
+			r.addTerm(p.items[pp].getCoef(), p.items[pp].getExp());
+			pp++;
+		}
+		
+		return r;
+	}
+	
+	// 두 다항식을 곱해주는 메소드
+	public Polynomial2 polyMult(Polynomial2 q) {
+		Polynomial2 r = new Polynomial2();
+		
+		for(int i = 0; i < this.noOfTerms; i++) {
+			Polynomial2 t = new Polynomial2();
+			int coef, exp;
+			
+			for(int qq = 0; qq < q.noOfTerms; qq++) {
+				coef = this.items[i].getCoef() * q.items[qq].getCoef();
+				exp = this.items[i].getExp() + q.items[qq].getExp();
+				t.addTerm(coef, exp);
+			}
+			r = r.polyAdd(t);
+		}
+		
+		return r;
+	}
+	
+	// 출력
+	public void print() {
+		String str = "";
+		for(int i = 0; i < this.noOfTerms; i++)
+			str += this.items[i].getCoef() + "[" + this.items[i].getExp() + "] + ";
+		
+		System.out.println(str.substring(0, str.length()-2));
+	}
+}
+public class p2_20195124 {
+	public static void main(String[] args) {
+		Polynomial2 p = new Polynomial2();
+		p.addTerm(6, 4);
+		p.addTerm(2, 3);
+		p.addTerm(3, 0);
+		p.print();
+		
+		Polynomial2 q = new Polynomial2();
+		q.addTerm(2, 4);
+		q.addTerm(4, 2);
+		q.addTerm(2, 1);
+		q.print();
+		
+		Polynomial2 r = p.polyAdd(q);
+		r.print();
+
+		r = p.polyMult(q);
+		r.print();
+	}
+}
