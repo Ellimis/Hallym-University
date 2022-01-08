@@ -1,0 +1,176 @@
+-- Include Library 종류
+
+GameFramework/SpringArmComponent.h
+	1. USpringArmComponent 사용 가능 ( Camera Boom )
+
+GameFramework/CharacterMovementComponent.h
+	1. GetCharacterMovement()->bOrientRotationToMovement = true; 사용 가능
+	2. GetCharacterMovement()->MaxWalkSpeed *= 2.5f; 사용 가능
+
+GameFramework/ProjectileMovementComponent.h
+	1. ProjectileMovement = CreateDefaultSubobject<ProjectileMovementComponent>(TEXT("Projectile Movement")); 사용 가능
+	2. FORCEINLINE UProjectileMovementComponent* GetProjectileMovementComponent() const { return ProjectileMovement; }; 사용 가능
+
+Camera/CameraComponent.h
+	1. UCameraComponent 사용 가능 ( Follow Camera )
+
+Components/CapsuleComponent.h
+	1. GetCapsuleComponent()->InitCapsuleSize(42.f, 96.f); 사용 가능
+
+Components/SphereComponent.h
+	1. SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Collision")); 사용 가능
+
+Components/BoxComponent.h
+	1. CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box")); 사용 가능
+
+Kismet/KismetMathLibrary.h
+	1. const FVector Direction = UKismetMathLibrary::GetRightVector(YawRotation); 사용가능
+	2. const FVector Direction = UKismetMathLibrary::GetForwardVector(YawRotation);
+	3. AddMovementInput(Direction, value); 사용 가능
+
+Kismet/GameplayStatics.h
+	1. ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(this, 0); 사용 가능
+
+Kismet/KismetSystemLibrary.h
+	1. UKismetSystemLibrary::QuitGame(GetWorld(), nullptr, EQuitPreference::Quit, true); 사용 가능
+	2. UKismetsystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, true);
+
+DrawDebugHelpers.h
+	1. DrawDebugLine(GetWorld(), Start, End, FColor::Red); 사용 가능
+
+TimerManager.h
+	1. GetWorldTimerManager().SetTimer(ThrowTimerHandle, this, &AEnemyCharacter::ThrowDodgeball, ThrowingInterval, true, ThrowingDelay); 사용 가능
+	2. GetWorldTimerManager().ClearTimer(ThrowTimerHandle); 사용 가능
+
+CollisionQueryParams.h
+	1. FCollisionQueryParams QueryParams.AddIgnredActors(IgnoreActors)	; 사용 가능
+
+Engine/World.h
+	1. const UWorld* World->LineTraceSingleByChannel(Hit, Start, End, Channel, QueryParams); 사용 가능
+
+
+
+멤버 변수
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = MyTPS_Cam, meta = (AllowPrivateAccess = "true"))
+    class USpringArmComponent* CameraBoom;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = MyTPS_Cam, meta = (AllowPrivateAccess = "true"))
+    class UCameraComponent* FollowCamera;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = LookAt, meta = (AllowPrivateAccess = "true"))
+    class USceneComponent* SightSource;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Dodgeball, meta = (AllowPrivateAccess = "true"))
+    class USphereComponent* SphereComponent;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Dodgeball, meta = (AllowPrivateAccess = "true"))
+    class UProjectileMovementComponent* ProjectileMovement;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Wall, meta = (AllowPrivateAccess = "true"))
+    class USceneComponent* RootScene;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = VictoryBox, meta = (AllowPrivateAccess = "true"))
+    class UBoxComponent* CollisionBox;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = LookAt, meta = (AllowPrivateAccess = "true"))
+    class ULookAtActorComponent* LookAtActorComponent;
+
+-- Dodgeball Projectile을 Blueprint로 확장해서 에디터에서 등록
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Dodgeball)
+    TSubclassOf<class ADodgeballProjectile> DodgeballClass;
+
+    UPROPERTY(EditDefaultsOnly, Category = Health)
+    float Health = 100.0f;
+
+    UPROPERTY(EditAnywhere, Category = Damage)
+    float Damage = 34.f;
+
+-- Code-Only Component
+    class UHealthComponent* HealthComponent;
+
+멤버 함수
+    UFUNCTION()
+    void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+    UFUNTION(BlueprintNativeEvent, Category= Health) 
+    void OnDeath(); 
+    virtual void OnDeath_Implementation()=0;
+
+UPROPERTY로 선언한 멤버 변수 컴포넌트 생성
+-- DodgeballCharacter
+CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
+CameraBoom->SetupAttachment(RootComponent);
+CameraBoom->TargetArmLength = 900.f;
+CameraBoom->SetRelativeRotation(FRotator(-70.0f, 0.0f, 0.0f)); // The camera looks down 
+CameraBoom->bUsePawnControlRotation = false; // Ignore pawn's pitch, yaw and roll
+CameraBoom->bInheritPitch = false;
+CameraBoom->bInheritYaw = false;
+CameraBoom->bInheritRoll = false;
+
+-- DodgeballCharacter
+FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Follow Camera"));
+FollowCamera->SetupAttachment(RootComponent);
+FollowCamera->bUsePawnControlRotation = false;
+
+-- EnemyCharacter
+SightSource = CreateDefaultSubobject<USceneComponent>(TEXT("Sight Source"));
+SightSource->SetupAttachment(RootComponent);
+
+-- DodgeballProjectile
+SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Collision"));
+SphereComponent->SetSphereRadius(35.f);
+SphereComponent->SetCollisionProfileName(FName("Dodgeball"));
+SphereComponent->SetSimulatePhysics(true);
+SphereComponent->SetNotifyRigidBodyCollision(true); // Simulation generates Hit events
+SphereComponent->OnComponentHit.AddDynamic(this, &ADodgeballProjectile::OnHit); // Listen to the OnComponentHit event by binding it to our function
+RootComponent = SphereComponent;
+
+-- DodgeballProjectile
+ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement"));
+ProjectileMovement->InitialSpeed = 1500.0f;
+
+-- Wall, VictoryBox
+RootScene = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+RootComponent = RootScene;
+
+-- VictoryBox
+CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
+CollisionBox->SetupAttachment(RootComponent);
+CollisionBox->SetBoxExtent(FVector(60.0f, 60.0f, 60.0f));
+CollisionBox->SetRelativeLocation(FVector(0.f, 0.f, 120.f));
+CollisionBox->OnComponentBeginOverlap.AddDynamic(this, &AVictoryBox::OnBeginOverlap);
+
+-- LookAtActorComponent
+LookAtActorComponent = CreateDefaultSubobject<LookAtActorComponent>(TEXT("Look At Actor Component"));
+LookAtActorComponent->SetupAttachment(RootComponent);
+
+
+--------------- 꼭 외우기
+
+Axis
+	PlayerInputComponent->BindAxis("Axis 이름", this, &참조클래스명::함수명);
+참조클래스명
+	1. 이동시	현재 연결된 클래스명 AMyThirdPersonChar::MoveForward
+	2. 회전시 좌우는 APawn::AddControllYawInput, 상하는 APawn::AddControllPitchInput
+
+Action
+	PlayerInputComponent->BindAction("Action 이름", IE_Pressed 또는 IE_Released, this, &참조클래스명::함수명);
+참조클래스명
+	1. 걷기시 현재 연결된 클래스명 AMyThirdPersonChar::BeginWalking
+	2. 점프시 ACharacter::Jump, 정지시 ACharacter::StopJumping
+
+Touch
+	PlayerInputComponent->BindTouch(IE_Pressed 또는 IE_Released, this, &AMyThirdPersonChar::TouchStarted)
+
+
+HealthInterface
+    UFUNTION(BlueprintNativeEvent, Category= Health) 
+    void OnDeath(); 
+    virtual void OnDeath_Implementation()=0;
+
+FORCEINLINE void SetTarget(AActor* NewTarget) { TargetActor = NewTarget; }
+FORCEINLINE bool CanSeeTarget() const { return bCanSeeTarget; }
+
+
+
+
